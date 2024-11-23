@@ -5,32 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.finsight.R
+import com.capstone.finsight.adapter.NewsAdapter
+import com.capstone.finsight.adapter.SmallAdapter
 import com.capstone.finsight.databinding.ActivityMainBinding
 import com.capstone.finsight.databinding.FragmentInsightBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [InsightFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class InsightFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
     private lateinit var binding : FragmentInsightBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
         }
     }
 
@@ -42,14 +29,23 @@ class InsightFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.rcNews.layoutManager = LinearLayoutManager(requireActivity())
+        binding.rcNews.setHasFixedSize(true)
+        binding.rcNews.adapter = NewsAdapter()
+
+        binding.rcFaq.layoutManager = LinearLayoutManager(requireActivity())
+        binding.rcFaq.setHasFixedSize(true)
+        binding.rcFaq.adapter = SmallAdapter()
+
+    }
     companion object {
 
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             InsightFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
                 }
             }
     }

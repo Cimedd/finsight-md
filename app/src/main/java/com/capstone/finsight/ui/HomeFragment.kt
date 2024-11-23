@@ -5,8 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.capstone.finsight.R
-import com.capstone.finsight.databinding.ActivityMainBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.capstone.finsight.adapter.NewsAdapter
+import com.capstone.finsight.adapter.SmallAdapter
 import com.capstone.finsight.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -24,6 +25,18 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.rcHomeNews.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rcHomeNews.setHasFixedSize(true)
+        binding.rcHomeNews.adapter = NewsAdapter()
+
+        binding.rcSuggestion.layoutManager = LinearLayoutManager(requireActivity())
+        binding.rcSuggestion.setHasFixedSize(true)
+        binding.rcSuggestion.adapter = SmallAdapter()
+
     }
 
     companion object {

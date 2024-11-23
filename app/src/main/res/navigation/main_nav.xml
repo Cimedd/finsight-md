@@ -3,25 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/itemHome">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/itemHome"
         android:name="com.capstone.finsight.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/insightFragment"
+        android:id="@+id/itemInsight"
         android:name="com.capstone.finsight.ui.InsightFragment"
         android:label="fragment_insight"
         tools:layout="@layout/fragment_insight" />
     <fragment
-        android:id="@+id/portofolioFragment"
+        android:id="@+id/itemPorto"
         android:name="com.capstone.finsight.ui.PortfolioFragment"
         android:label="fragment_portofolio"
         tools:layout="@layout/fragment_portofolio" />
     <fragment
-        android:id="@+id/settingFragment"
+        android:id="@+id/itemSetting"
         android:name="com.capstone.finsight.ui.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
