@@ -36,6 +36,7 @@
                 android:id="@+id/textView13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
                 android:maxLines="2"
                 android:paddingStart="8dp"
                 android:paddingTop="4dp"

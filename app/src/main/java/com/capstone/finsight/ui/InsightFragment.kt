@@ -34,10 +34,17 @@ class InsightFragment : Fragment() {
         binding.rcNews.layoutManager = LinearLayoutManager(requireActivity())
         binding.rcNews.setHasFixedSize(true)
         binding.rcNews.adapter = NewsAdapter()
+        val smallAdapt = SmallAdapter()
 
         binding.rcFaq.layoutManager = LinearLayoutManager(requireActivity())
         binding.rcFaq.setHasFixedSize(true)
-        binding.rcFaq.adapter = SmallAdapter()
+        binding.rcFaq.adapter = smallAdapt
+
+        smallAdapt.setOnItemClickCallback(object : SmallAdapter.OnItemClickListener{
+            override fun onItemClick() {
+                EducateFragment().show(parentFragmentManager,"Educate")
+            }
+        })
 
     }
     companion object {

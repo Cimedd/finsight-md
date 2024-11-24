@@ -5,17 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.DialogFragment
 import com.capstone.finsight.R
-import com.capstone.finsight.databinding.ActivityMainBinding
-import com.capstone.finsight.databinding.FragmentSettingBinding
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-class SettingFragment : Fragment() {
+class EducateFragment : DialogFragment() {
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var binding : FragmentSettingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,20 +25,22 @@ class SettingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentSettingBinding.inflate(layoutInflater)
-        return binding.root
+    ): View? {
+        return inflater.inflate(R.layout.fragment_educate, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
     }
 
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            SettingFragment().apply {
+            EducateFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

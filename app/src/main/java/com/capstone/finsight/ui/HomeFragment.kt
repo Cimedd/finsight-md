@@ -1,5 +1,6 @@
 package com.capstone.finsight.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -32,12 +33,21 @@ class HomeFragment : Fragment() {
         binding.rcHomeNews.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding.rcHomeNews.setHasFixedSize(true)
         binding.rcHomeNews.adapter = NewsAdapter()
+        val smallAdapt = SmallAdapter()
 
         binding.rcSuggestion.layoutManager = LinearLayoutManager(requireActivity())
         binding.rcSuggestion.setHasFixedSize(true)
-        binding.rcSuggestion.adapter = SmallAdapter()
+        binding.rcSuggestion.adapter = smallAdapt
 
+        smallAdapt.setOnItemClickCallback(object : SmallAdapter.OnItemClickListener{
+            override fun onItemClick() {
+                val intent = Intent(requireActivity(), ForecastActivity::class.java)
+                requireActivity().startActivity(intent)
+            }
+        })
     }
+
+
 
     companion object {
         @JvmStatic

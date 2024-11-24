@@ -17,6 +17,7 @@ class LoginActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
 
         binding.txtLogToReg.setOnClickListener{
             val intent = Intent(this, SignUpActivity::class.java)
@@ -29,5 +30,9 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.textView22.setOnClickListener{
+            val intent = Intent(this, RiskActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

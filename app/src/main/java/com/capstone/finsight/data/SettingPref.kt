@@ -17,6 +17,18 @@ class SettingPref private constructor(private val dataStore: DataStore<Preferenc
     private val name = stringPreferencesKey("name")
     private val theme = booleanPreferencesKey("theme")
 
+    fun getThemeSetting(): Flow<Boolean> {
+        return dataStore.data.map { preferences ->
+            preferences[theme] ?: false
+        }
+    }
+
+    suspend fun saveThemeSetting(isDarkModeActive: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[theme] = isDarkModeActive
+        }
+    }
+
     companion object {
         @Volatile
         private var INSTANCE: SettingPref? = null
