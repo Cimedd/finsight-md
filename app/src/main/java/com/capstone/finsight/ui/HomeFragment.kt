@@ -45,6 +45,11 @@ class HomeFragment : Fragment() {
                 requireActivity().startActivity(intent)
             }
         })
+
+        binding.btnGoals.setOnClickListener{
+            val intent = Intent(requireActivity(), RiskActivity::class.java)
+            requireActivity().startActivity(intent)
+        }
     }
 
 

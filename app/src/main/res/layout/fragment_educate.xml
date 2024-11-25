@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
     tools:context=".ui.EducateFragment">
 
     <TextView
@@ -11,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/jost"
         android:text="TextView"
@@ -25,7 +27,7 @@
     <TextView
         android:id="@+id/textView20"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="400dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
@@ -33,7 +35,9 @@
         android:maxLines="6"
         android:scrollbarAlwaysDrawHorizontalTrack="true"
         android:scrollbars="vertical"
-        android:text="TextView"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet orci imperdiet, rutrum velit sed, varius risus. Integer commodo feugiat velit et mattis. Vivamus scelerisque, dui accumsan tincidunt tempor, sem ipsum fringilla sapien, non interdum sem massa eu felis. Fusce tincidunt suscipit purus, et dignissim orci laoreet et. Maecenas auctor pellentesque erat, eget euismod magna placerat a. Nullam vel nibh posuere, mollis ex nec, malesuada eros. Nullam maximus consequat cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a neque eget massa iaculis mattis et sit amet justo. Curabitur lacinia in lorem quis volutpat.
+
+Proin interdum sit amet quam quis imperdiet. Duis mi nulla, ornare non mauris elementum, tincidunt bibendum ipsum. Nunc placerat quis dolor vel suscipit. Nam sollicitudin eleifend elit, sed tristique lacus interdum vitae. Nam viverra eros at mauris tempus, ac bibendum lacus feugiat. Sed suscipit eros ut mi dictum lobortis. In auctor consequat diam vel ullamcorper. Nullam ac semper metus. Sed non efficitur risus. Sed id enim condimentum, dignissim est quis, vestibulum felis. Pellentesque feugiat felis justo, non posuere ex dapibus vel. Nullam porttitor lacinia magna sed porta."
         android:textAppearance="@style/Text1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

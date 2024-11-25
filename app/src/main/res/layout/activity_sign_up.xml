@@ -11,9 +11,10 @@
     tools:layout_editor_absoluteY="18dp">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardRegister"
         style="@style/TopRoundCard"
         android:layout_width="match_parent"
-        android:layout_height="570dp"
+        android:layout_height="0dp"
         android:layout_marginTop="180dp"
         android:backgroundTint="@android:color/white"
         app:cardPreventCornerOverlap="true"

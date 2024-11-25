@@ -1,4 +1,4 @@
 package com.capstone.finsight.network
 
-class ApiService {
+interface ApiService {
 }

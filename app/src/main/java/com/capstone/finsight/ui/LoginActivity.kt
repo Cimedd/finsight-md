@@ -1,7 +1,9 @@
 package com.capstone.finsight.ui
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -19,6 +21,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+        animation()
+
         binding.txtLogToReg.setOnClickListener{
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
@@ -34,5 +38,9 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, RiskActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun animation(){
+        ObjectAnimator.ofFloat(binding.cardLogin, View.TRANSLATION_Y, 1000f, 0f).setDuration(650).start()
     }
 }

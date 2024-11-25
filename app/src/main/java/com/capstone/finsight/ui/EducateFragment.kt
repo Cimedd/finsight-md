@@ -31,6 +31,7 @@ class EducateFragment : DialogFragment() {
 
     override fun onStart() {
         super.onStart()
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.rounded_dialog)
         dialog?.window?.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT

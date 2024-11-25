@@ -18,7 +18,7 @@ class SettingVMF(private val setting : SettingRepo): ViewModelProvider.NewInstan
         private var instance: SettingVMF? = null
         fun getInstance(context: Context): SettingVMF =
             instance ?: synchronized(this) {
-                instance ?: SettingVMF(SettingRepo())
+                instance ?: SettingVMF(Injection.provideSetting(context))
             }.also { instance = it }
     }
 }
