@@ -7,16 +7,32 @@ import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.capstone.finsight.R
+import com.capstone.finsight.data.ProfileVMF
+import com.capstone.finsight.data.ProfileViewModel
+import com.capstone.finsight.data.SettingVMF
+import com.capstone.finsight.data.SettingViewModel
 import com.capstone.finsight.databinding.ActivityRiskBinding
+import com.capstone.finsight.network.Result
+import kotlinx.coroutines.launch
 
 class RiskActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRiskBinding
     private var index = 0
+    private var uid = ""
     private val question = arrayListOf("Question 1","Question 2","Question 3", "Question 4")
+    private val profileVM by viewModels<ProfileViewModel> {
+        ProfileVMF.getInstance(this)
+    }
+
+    private val settingVM by viewModels<SettingViewModel> {
+        SettingVMF.getInstance(this)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,6 +40,9 @@ class RiskActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+        lifecycleScope.launch {
+            uid = settingVM.getUser()
+        }
         binding.btnNext.setOnClickListener{
             checkProgress()
             binding.progressBar2.setProgress(index*15,true)
@@ -35,6 +54,19 @@ class RiskActivity : AppCompatActivity() {
     private fun checkProgress(){
         if(index<6){
             index++
+        }
+        else{
+            profileVM.setProfileRisk(uid, "Aggresive").observe(this){
+                when(it){
+                    is Result.Error -> {}
+                    Result.Loading -> {
+
+                    }
+                    is Result.Success -> {
+
+                    }
+                }
+            }
         }
     }
 

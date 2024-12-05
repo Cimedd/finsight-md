@@ -9,4 +9,14 @@ object Injection {
         val apiService = ApiConfig.getApiService()
         return SettingRepo(apiService,pref)
     }
+
+    fun providePost(context : Context) : PostRepo{
+        val apiService = ApiConfig.getApiService()
+        return PostRepo(apiService)
+    }
+
+    fun provideProfile(context : Context) : ProfileRepo{
+        val apiService = ApiConfig.getApiService()
+        return ProfileRepo(apiService)
+    }
 }

@@ -7,7 +7,6 @@ import androidx.room.RoomDatabase
 
 
 abstract class AppDB : RoomDatabase() {
-
     companion object {
         @Volatile
         private var INSTANCE: AppDB? = null

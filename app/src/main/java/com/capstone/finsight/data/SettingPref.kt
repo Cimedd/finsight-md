@@ -1,6 +1,7 @@
 package com.capstone.finsight.data
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -14,7 +15,8 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 
 class SettingPref private constructor(private val dataStore: DataStore<Preferences>) {
     private val userId = stringPreferencesKey("id")
-    private val name = stringPreferencesKey("name")
+    private val token = stringPreferencesKey("token")
+    private val username = stringPreferencesKey("username")
     private val theme = booleanPreferencesKey("theme")
 
     fun getThemeSetting(): Flow<Boolean> {
@@ -28,6 +30,30 @@ class SettingPref private constructor(private val dataStore: DataStore<Preferenc
             preferences[theme] = isDarkModeActive
         }
     }
+
+    suspend fun loggedIn(user : String, name : String, tokens: String){
+        dataStore.edit { preferences ->
+            preferences[userId] = user
+            preferences[token] = tokens
+            preferences[username] = name
+            Log.d("logged in", name + "" + tokens)
+        }
+    }
+
+    suspend fun loggedOut(){
+        dataStore.edit { preferences ->
+            preferences[userId] = ""
+            preferences[token] = ""
+            preferences[username] = ""
+        }
+    }
+
+    fun checkUser():Flow<String>{
+        return dataStore.data.map { preferences ->
+            preferences[userId] ?: ""
+        }
+    }
+
 
     companion object {
         @Volatile

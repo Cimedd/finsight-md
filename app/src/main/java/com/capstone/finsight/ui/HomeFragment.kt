@@ -6,13 +6,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.finsight.adapter.NewsAdapter
 import com.capstone.finsight.adapter.SmallAdapter
+import com.capstone.finsight.data.SettingVMF
+import com.capstone.finsight.data.SettingViewModel
 import com.capstone.finsight.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
     private lateinit var binding : FragmentHomeBinding
+    private val settingVM by viewModels<SettingViewModel>{
+        SettingVMF.getInstance(requireActivity())
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -50,6 +57,8 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireActivity(), RiskActivity::class.java)
             requireActivity().startActivity(intent)
         }
+
+
     }
 
 

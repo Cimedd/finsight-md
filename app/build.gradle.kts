@@ -62,4 +62,6 @@ dependencies {
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
     implementation (libs.glide)
+    implementation(libs.androidx.viewpager2)
+    implementation(libs.circleimageview)
 }

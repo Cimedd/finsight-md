@@ -25,4 +25,39 @@
         android:name="com.capstone.finsight.ui.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/itemFeed"
+        android:name="com.capstone.finsight.ui.PostFragment"
+        android:label="fragment_post"
+        tools:layout="@layout/fragment_post" >
+        <action
+            android:id="@+id/action_itemFeed_to_detailPostFragment"
+            app:destination="@id/detailPostFragment" />
+        <action
+            android:id="@+id/action_itemFeed_to_addPostFragment"
+            app:destination="@id/addPostFragment" />
+        <action
+            android:id="@+id/action_itemFeed_to_itemProfile"
+            app:destination="@id/itemProfile" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemProfile"
+        android:name="com.capstone.finsight.ui.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_itemProfile_to_itemSetting"
+            app:destination="@id/itemSetting" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailPostFragment"
+        android:name="com.capstone.finsight.ui.DetailPostFragment"
+        android:label="fragment_detail_post"
+        tools:layout="@layout/fragment_detail_post" >
+    </fragment>
+    <fragment
+        android:id="@+id/addPostFragment"
+        android:name="com.capstone.finsight.ui.AddPostFragment"
+        android:label="fragment_add_post"
+        tools:layout="@layout/fragment_add_post" />
 </navigation>

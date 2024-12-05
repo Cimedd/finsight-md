@@ -13,13 +13,18 @@
         android:title="Portofolio"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/itemFeed"
+        android:icon="@drawable/baseline_forum_24"
+        android:title="Forum"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/itemInsight"
         android:icon="@drawable/baseline_stacked_line_chart_24"
         android:title="Insight"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/itemSetting"
+        android:id="@+id/itemProfile"
         android:icon="@drawable/baseline_settings_24"
-        android:title="Setting"
+        android:title="Profile"
         app:showAsAction="ifRoom" />
 </menu>

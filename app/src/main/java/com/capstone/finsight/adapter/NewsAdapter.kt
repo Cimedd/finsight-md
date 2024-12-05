@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.capstone.finsight.R
 import com.capstone.finsight.databinding.CardNewsBinding
 
-class NewsAdapter() : RecyclerView.Adapter<NewsAdapter.ListViewHolder>() {
+class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ListViewHolder>() {
 
     class ListViewHolder(var binding : CardNewsBinding) : RecyclerView.ViewHolder(binding.root)
 
