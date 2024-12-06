@@ -12,7 +12,7 @@ object TextFormatter {
         val timestamp = Instant.ofEpochSecond(seconds, nanoseconds.toLong())
             .atZone(ZoneId.systemDefault())
             .toLocalDateTime()
-        return timestamp.toString()
+        return "Posted on $timestamp"
     }
 
     fun formatNumber(number: Int): String {

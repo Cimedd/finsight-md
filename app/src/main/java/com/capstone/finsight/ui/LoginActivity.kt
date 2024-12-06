@@ -35,7 +35,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-
         binding.txtLogToReg.setOnClickListener{
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)

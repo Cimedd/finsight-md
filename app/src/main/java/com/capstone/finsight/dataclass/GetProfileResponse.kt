@@ -11,7 +11,10 @@ data class GetProfileResponse(
 	val user: User? = null,
 
 	@field:SerializedName("status")
-	val status: String? = null
+	val status: String? = null,
+
+	@field:SerializedName("posts")
+	val post: List<PostsItem>? = null
 )
 data class User(
 
@@ -22,5 +25,11 @@ data class User(
 	val profileRisk: String? = null,
 
 	@field:SerializedName("username")
-	val username: String? = null
+	val username: String? = null,
+
+	@field:SerializedName("numFollowings")
+	val followings: Int = 0,
+
+	@field:SerializedName("numFollowers")
+	val followers: Int? = 0
 )

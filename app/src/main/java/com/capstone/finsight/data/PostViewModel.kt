@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.capstone.finsight.dataclass.CommentsItem
+import com.capstone.finsight.dataclass.NewsItem
 import com.capstone.finsight.dataclass.PostsItem
 import com.capstone.finsight.network.Result
 import kotlinx.coroutines.launch
@@ -17,6 +18,9 @@ class PostViewModel(private val repo : PostRepo): ViewModel() {
 
     private val _postFol = MutableLiveData<Result<List<PostsItem>>>()
     val postFol : LiveData<Result<List<PostsItem>>> = _postFol
+
+    private val _news = MutableLiveData<Result<List<NewsItem>>>()
+    val news : LiveData<Result<List<NewsItem>>> = _news
 
     private val _comment = MutableLiveData<Result<List<CommentsItem>>>()
     val comment : LiveData<Result<List<CommentsItem>>> = _comment
@@ -46,6 +50,17 @@ class PostViewModel(private val repo : PostRepo): ViewModel() {
         }
     }
 
+    fun getUserPost(posts: List<PostsItem>){
+        _post.value = Result.Loading
+        try
+        {
+            _post.value = Result.Success(posts)
+        }
+        catch (e:Exception){
+            _post.value = Result.Error( e.message ?: "Unknown error")
+        }
+    }
+
     fun getPostComments(postId: String){
         viewModelScope.launch {
             _comment.value = Result.Loading
@@ -57,6 +72,19 @@ class PostViewModel(private val repo : PostRepo): ViewModel() {
             }
             catch (e:Exception){
                 _comment.value = Result.Error( e.message ?: "Unknown error")
+            }
+        }
+    }
+
+    fun getNews(){
+        viewModelScope.launch {
+            _news.value = Result.Loading
+            try {
+                val response = repo.getNews()
+                val news = response.allNewsContent?.aMZN?.filterNotNull() ?: emptyList()
+                _news.value = Result.Success(news)
+            } catch (e: Exception) {
+                _news.value = Result.Error(e.message ?: "Unknown error")
             }
         }
     }
@@ -87,16 +115,9 @@ class PostViewModel(private val repo : PostRepo): ViewModel() {
         }
     }
 
-    fun postLike(uid: String, postId : String) = liveData{
-        emit(Result.Loading)
-        try {
-            val response = repo.likePost(uid, postId)
-            if(response.status == "success"){
-                emit(Result.Success(response))
-            }
-        }
-        catch (e : Exception){
-            emit(Result.Error( e.message ?: "Unknown error"))
+    fun postLike(uid: String, postId : String){
+        viewModelScope.launch {
+            repo.likePost(uid, postId)
         }
     }
 

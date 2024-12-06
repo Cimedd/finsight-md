@@ -18,6 +18,7 @@ import com.capstone.finsight.data.SettingViewModel
 import com.capstone.finsight.databinding.FragmentDetailPostBinding
 import com.capstone.finsight.dataclass.PostsItem
 import com.capstone.finsight.network.Result
+import com.capstone.finsight.utils.TextFormatter
 import kotlinx.coroutines.launch
 
 
@@ -54,29 +55,41 @@ class DetailPostFragment : Fragment() {
         binding.txtDetailTitle.text = postItem?.title
         binding.txtDetailUser.text = postItem?.username
         binding.txtDetailContent.text = postItem?.content
+        binding.txtPostedOn.text = TextFormatter.getDateTime(postItem?.createdAt?.seconds!!, postItem.createdAt.nanoseconds!! )
 
         postVM.comment.observe(viewLifecycleOwner){
             when(it){
-                is Result.Error ->{}
-                Result.Loading ->{}
+                is Result.Error ->{
+
+                }
+                Result.Loading ->{
+
+                }
                 is Result.Success ->{
                     Log.d("DATA", it.data.toString())
+
                     binding.rcComment.adapter = CommentAdapter(it.data)
                 }
             }
         }
 
         postVM.getPostComments(postID)
+
         lifecycleScope.launch {
             userID = settingVM.getUser()
         }
 
-        binding.btnAddComment.setOnClickListener {
+        binding.txtAddComments.setOnClickListener {
             postVM.createComment(userID, postID, binding.txtAddComments.text.toString()).observe(viewLifecycleOwner){
                 when(it){
-                    is Result.Error ->{}
-                    Result.Loading ->{}
+                    is Result.Error ->{
+                        binding.rcComment.isEnabled = true
+                    }
+                    Result.Loading ->{
+                        binding.rcComment.isEnabled = false
+                    }
                     is Result.Success ->{
+                        binding.rcComment.isEnabled = true
                         postVM.getPostComments(postID)
                     }
                 }

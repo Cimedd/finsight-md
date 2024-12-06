@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         }
         val navView: BottomNavigationView = binding.bottomNav
         val navController = findNavController(R.id.navHost)
+
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.itemHome, R.id.itemPorto, R.id.itemFeed, R.id.itemInsight, R.id.itemProfile
@@ -35,5 +36,15 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         supportActionBar?.hide()
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.itemHome || destination.id == R.id.itemPorto ||
+                destination.id == R.id.itemFeed || destination.id == R.id.itemInsight ||
+                destination.id == R.id.itemProfile) {
+                supportActionBar?.hide()
+            } else {
+                supportActionBar?.show()
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@ import com.capstone.finsight.dataclass.PostCommentResponse
 import com.capstone.finsight.dataclass.PostFollowingResponse
 import com.capstone.finsight.dataclass.RegisterRequest
 import com.capstone.finsight.dataclass.GenericResponse
+import com.capstone.finsight.dataclass.NewsResponse
 import com.capstone.finsight.dataclass.ResponseLogin
 import com.capstone.finsight.dataclass.ResponseRegister
 import retrofit2.Response
@@ -54,6 +55,9 @@ interface ApiService {
     suspend fun getComment(
         @Path("postId") id: String
     ): PostCommentResponse
+
+    @GET("news")
+    suspend fun getNews() : NewsResponse
 
     @POST("posts/create")
     suspend fun createPost(

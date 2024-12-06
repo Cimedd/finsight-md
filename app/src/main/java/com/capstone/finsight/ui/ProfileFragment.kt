@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -19,7 +20,9 @@ import com.capstone.finsight.data.ProfileViewModel
 import com.capstone.finsight.data.SettingVMF
 import com.capstone.finsight.data.SettingViewModel
 import com.capstone.finsight.databinding.FragmentProfileBinding
+import com.capstone.finsight.dataclass.PostsItem
 import com.capstone.finsight.network.Result
+import com.capstone.finsight.utils.TextFormatter
 import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
@@ -50,69 +53,87 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.imageView2.setImageResource(R.drawable.login_gradient)
+        binding.imgUser.setImageResource(R.drawable.login_gradient)
         binding.rcProfile.layoutManager = LinearLayoutManager(requireActivity())
         binding.rcProfile.setHasFixedSize(true)
+
         lifecycleScope.launch {
             val uid = settingVM.getUser()
-            val isUser = arguments?.getString("UID") ?: uid
-            setUI(isUser == uid)
-            profileVM.getProfile(isUser).observe(requireActivity()){
+            profileVM.getProfile(uid).observe(requireActivity()){
                 when(it){
                     is Result.Error -> {
-
+                        binding.imgUser.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.login_gradient))
+                        binding.txtProfileUname.text = "User not found"
+                        binding.txtProfileRisk.text =  "-"
+                        binding.txtFollowingCount.text = "0"
+                        binding.txtFollowerCount.text = "0"
                     }
                     Result.Loading -> {
-
+                        binding.imgUser.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.login_gradient))
                     }
                     is Result.Success ->{
-                        binding.imageView2.setImageResource(R.drawable.login_gradient)
+                        binding.imgUser.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.login_gradient))
                         binding.txtProfileUname.text = it.data.user?.username ?: "User not found"
                         binding.txtProfileRisk.text = it.data.user?.profileRisk ?: "-"
+                        binding.txtFollowingCount.text = TextFormatter.formatNumber(it.data.user?.followings ?: 0)
+                        binding.txtFollowerCount.text = TextFormatter.formatNumber(it.data.user?.followers ?: 0)
+                        if(it.data.post?.isNotEmpty() == true){
+                            postVM.getUserPost(it.data.post)
+                        }
+                        else{
+                            binding.txtPostResult.text = "User Hasn't Post Anything"
+                        }
                     }
                 }
             }
+
+            binding.btnEditProfile.setOnClickListener {
+                findNavController().navigate(R.id.action_itemProfile_to_itemSetting)
+            }
+
             postVM.post.observe(requireActivity()){
                 when(it){
                     is Result.Error -> {
-
+                        binding.txtPostResult.text = "Failed to get Posts"
                     }
                     Result.Loading -> {
-
+                        binding.txtPostResult.text = "Loading Posts"
                     }
                     is Result.Success ->{
-                        binding.rcProfile.adapter = PostAdapter(it.data)
+                        binding.txtPostResult.visibility = View.GONE
+                        val adapter = PostAdapter(it.data)
+                        binding.rcProfile.adapter = adapter
+                        adapter.setOnProfileClickCallback(object : PostAdapter.OnItemClickListener{
+                            override fun onItemClick(postItem: PostsItem) {
+                                val bundle = Bundle()
+                                bundle.putString(uid, postItem.authorUid)
+                                findNavController().navigate(R.id.action_itemFeed_to_itemProfile, bundle)
+                            }
+                        })
+                        adapter.setOnCommentClickCallback(object : PostAdapter.OnItemClickListener{
+                            override fun onItemClick(postItem: PostsItem) {
+                                val bundle = Bundle()
+                                bundle.putParcelable("PostItem", postItem)
+                                findNavController().navigate(R.id.action_itemFeed_to_detailPostFragment, bundle)
+                            }
+                        })
+                        adapter.setOnLikeClickCallback(object : PostAdapter.OnItemClickListener{
+                            override fun onItemClick(postItem: PostsItem) {
+                                Toast.makeText(requireActivity(), "LIKED", Toast.LENGTH_SHORT).show()
+                                postVM.postLike(uid,postItem.id?: "")
+                            }
+                        })
+                        adapter.setOnItemClickCallback(object : PostAdapter.OnItemClickListener{
+                            override fun onItemClick(postItem: PostsItem) {
+                                val bundle = Bundle()
+                                bundle.putParcelable("PostItem", postItem)
+                                findNavController().navigate(R.id.action_itemFeed_to_detailPostFragment, bundle)
+                            }
+                        })
                     }
                 }
             }
-            postVM.getAllPost(isUser)
         }
-    }
-
-    private fun setUI(isUser : Boolean){
-        if(!isUser){
-            binding.btnEditProfile.visibility = View.GONE
-            binding.btnFollow.setOnClickListener {
-                profileVM.followUser("","").observe(requireActivity()){
-                    when(it){
-                        is Result.Error -> TODO()
-                        Result.Loading -> TODO()
-                        is Result.Success -> TODO()
-                    }
-                }
-            }
-        }
-        else{
-            binding.btnFollow.visibility = View.GONE
-            binding.btnEditProfile.setOnClickListener {
-                Toast.makeText(requireActivity(), "FOLLOW", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_itemProfile_to_itemSetting)
-            }
-        }
-    }
-
-    private fun setData(){
-
     }
 
     companion object {

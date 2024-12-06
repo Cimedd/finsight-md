@@ -4,6 +4,7 @@ import com.capstone.finsight.dataclass.GetPostResponse
 import com.capstone.finsight.dataclass.PostCommentResponse
 import com.capstone.finsight.dataclass.PostFollowingResponse
 import com.capstone.finsight.dataclass.GenericResponse
+import com.capstone.finsight.dataclass.NewsResponse
 import com.capstone.finsight.network.ApiService
 
 class PostRepo(private val api : ApiService) {
@@ -16,6 +17,9 @@ class PostRepo(private val api : ApiService) {
     }
     suspend fun getPostComment(id:String): PostCommentResponse{
         return api.getComment(id)
+    }
+    suspend fun getNews() : NewsResponse {
+        return api.getNews()
     }
     suspend fun createPost(uid:String, title: String, content:String): GenericResponse{
         val body = mapOf("uid" to uid, "title" to title, "content" to content)

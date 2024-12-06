@@ -11,14 +11,20 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.finsight.adapter.NewsAdapter
 import com.capstone.finsight.adapter.SmallAdapter
+import com.capstone.finsight.data.PostVMF
+import com.capstone.finsight.data.PostViewModel
 import com.capstone.finsight.data.SettingVMF
 import com.capstone.finsight.data.SettingViewModel
 import com.capstone.finsight.databinding.FragmentHomeBinding
+import com.capstone.finsight.network.Result
 
 class HomeFragment : Fragment() {
     private lateinit var binding : FragmentHomeBinding
     private val settingVM by viewModels<SettingViewModel>{
         SettingVMF.getInstance(requireActivity())
+    }
+    private val postVM by viewModels<PostViewModel> {
+        PostVMF.getInstance(requireActivity())
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +45,16 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.rcHomeNews.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding.rcHomeNews.setHasFixedSize(true)
-        binding.rcHomeNews.adapter = NewsAdapter()
+        postVM.news.observe(viewLifecycleOwner){
+            when(it){
+                is Result.Error -> {}
+                Result.Loading -> {}
+                is Result.Success -> {
+                    binding.rcHomeNews.adapter = NewsAdapter(it.data)
+                }
+            }
+        }
+
         val smallAdapt = SmallAdapter()
 
         binding.rcSuggestion.layoutManager = LinearLayoutManager(requireActivity())

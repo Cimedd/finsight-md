@@ -3,6 +3,7 @@ package com.capstone.finsight.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.capstone.finsight.R
 import com.capstone.finsight.databinding.PostDesignBinding
 import com.capstone.finsight.dataclass.PostsItem
@@ -26,13 +27,13 @@ class PostAdapter(private val list : List<PostsItem>) : RecyclerView.Adapter<Pos
             txtDetailCard.text= list[position].content
 
             if(list[position].liked){
-                btnLike.setImageResource(R.drawable.baseline_favorite_border_24)
-            }
-            else{
                 btnLike.setImageResource(R.drawable.baseline_favorite_24)
             }
+            else{
+                btnLike.setImageResource(R.drawable.baseline_favorite_border_24)
+            }
 
-            txtPostUser.setOnClickListener{onProfileClickListener.onItemClick(list[position])}
+//            txtPostUser.setOnClickListener{onProfileClickListener.onItemClick(list[position])}
 
             txtPostTime.text = TextFormatter.getPostInterval(
                 list[position].createdAt?.seconds ?: 0, list[position].createdAt?.nanoseconds ?: 0
@@ -44,10 +45,17 @@ class PostAdapter(private val list : List<PostsItem>) : RecyclerView.Adapter<Pos
 
             btnLike.setOnClickListener{
                 list[position].liked = !list[position].liked
-                btnLike.setImageResource(
-                    if (list[position].liked) R.drawable.baseline_favorite_24
-                    else R.drawable.baseline_favorite_border_24
-                )
+                if(list[position].liked)
+                {
+                    val num = list[position].likes?.plus(1)
+                    txtNumLike.text = TextFormatter.formatNumber(num ?: 0)
+                    btnLike.setImageResource(R.drawable.baseline_favorite_24)
+                }
+                else{
+                    val num = txtNumLike.text.toString().toInt() - 1
+                    txtNumLike.text = TextFormatter.formatNumber(num )
+                    btnLike.setImageResource(R.drawable.baseline_favorite_border_24)
+                }
                 onLikeClickListener.onItemClick(list[position])}
 
             holder.itemView.setOnClickListener{
@@ -60,10 +68,10 @@ class PostAdapter(private val list : List<PostsItem>) : RecyclerView.Adapter<Pos
         this.onProfileClickListener = onItemClickListener
     }
     fun setOnCommentClickCallback(onItemClickListener: OnItemClickListener) {
-        this.onLikeClickListener = onItemClickListener
+        this.onCommentClickListener = onItemClickListener
     }
     fun setOnLikeClickCallback(onItemClickListener: OnItemClickListener) {
-        this.onCommentClickListener = onItemClickListener
+         this.onLikeClickListener  = onItemClickListener
     }
     fun setOnItemClickCallback(onItemClickListener: OnItemClickListener) {
         this.onItemClickListener = onItemClickListener

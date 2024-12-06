@@ -17,6 +17,7 @@ class SettingPref private constructor(private val dataStore: DataStore<Preferenc
     private val userId = stringPreferencesKey("id")
     private val token = stringPreferencesKey("token")
     private val username = stringPreferencesKey("username")
+    private val userImage = stringPreferencesKey("imagePath")
     private val theme = booleanPreferencesKey("theme")
 
     fun getThemeSetting(): Flow<Boolean> {
