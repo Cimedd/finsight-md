@@ -14,7 +14,10 @@ data class GetProfileResponse(
 	val status: String? = null,
 
 	@field:SerializedName("posts")
-	val post: List<PostsItem>? = null
+	val post: List<PostsItem>? = null,
+
+	@field:SerializedName("isFollowed")
+	var isFollow: Boolean = false
 )
 data class User(
 
@@ -31,5 +34,8 @@ data class User(
 	val followings: Int = 0,
 
 	@field:SerializedName("numFollowers")
-	val followers: Int? = 0
+	val followers: Int? = 0,
+
+	@field:SerializedName("profileUrl")
+	val profileURL: String? = null
 )

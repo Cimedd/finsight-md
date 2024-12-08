@@ -9,11 +9,15 @@ import com.capstone.finsight.dataclass.GenericResponse
 import com.capstone.finsight.dataclass.NewsResponse
 import com.capstone.finsight.dataclass.ResponseLogin
 import com.capstone.finsight.dataclass.ResponseRegister
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -33,6 +37,12 @@ interface ApiService {
     suspend fun getProfile(
         @Path("uid") uid: String
     ): GetProfileResponse
+
+    @GET("users/profile/{uid}/{followingUid}")
+    suspend fun getProfileOther(
+        @Path("uid") uid: String,
+        @Path("followingUid") folUid: String
+    ): GetProfileResponse
     @POST("users/follow")
     suspend fun followUser(
         @Body userFollow : Map<String,String>
@@ -40,6 +50,13 @@ interface ApiService {
     @PUT("users/update")
     suspend fun updateUser(
         @Body update : Map<String,String>,
+    ): GenericResponse
+
+    @Multipart
+    @PUT("users/addphoto")
+    suspend fun updatePhoto(
+        @Part("uid") uid: RequestBody,
+        @Part image: MultipartBody.Part
     ): GenericResponse
 
     @GET("posts/all/{uid}")
@@ -59,9 +76,13 @@ interface ApiService {
     @GET("news")
     suspend fun getNews() : NewsResponse
 
+    @Multipart
     @POST("posts/create")
     suspend fun createPost(
-        @Body post : Map<String,String>
+        @Part("uid") uid: RequestBody,
+        @Part("title") title: RequestBody,
+        @Part("content") content: RequestBody,
+        @Part image: MultipartBody.Part?
     ): GenericResponse
 
     @POST("posts/comments")

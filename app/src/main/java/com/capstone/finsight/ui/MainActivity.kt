@@ -1,8 +1,10 @@
 package com.capstone.finsight.ui
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.findNavController
@@ -30,21 +32,17 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.itemHome, R.id.itemPorto, R.id.itemFeed, R.id.itemInsight, R.id.itemProfile
+                R.id.itemHome, R.id.itemFeed, R.id.itemInsight, R.id.itemProfile
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        supportActionBar?.hide()
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this, R.color.WhiteBlack)))
 
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.itemHome || destination.id == R.id.itemPorto ||
-                destination.id == R.id.itemFeed || destination.id == R.id.itemInsight ||
-                destination.id == R.id.itemProfile) {
-                supportActionBar?.hide()
-            } else {
-                supportActionBar?.show()
-            }
-        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.navHost)
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

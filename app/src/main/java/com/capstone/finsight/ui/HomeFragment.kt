@@ -8,9 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.finsight.adapter.NewsAdapter
+import com.capstone.finsight.adapter.ReccomAdapter
 import com.capstone.finsight.adapter.SmallAdapter
+import com.capstone.finsight.data.MLVMF
+import com.capstone.finsight.data.MLViewModel
 import com.capstone.finsight.data.PostVMF
 import com.capstone.finsight.data.PostViewModel
 import com.capstone.finsight.data.SettingVMF
@@ -25,6 +29,10 @@ class HomeFragment : Fragment() {
     }
     private val postVM by viewModels<PostViewModel> {
         PostVMF.getInstance(requireActivity())
+    }
+
+    private val MLVM by viewModels<MLViewModel> {
+        MLVMF.getInstance(requireActivity())
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,18 +63,26 @@ class HomeFragment : Fragment() {
             }
         }
 
-        val smallAdapt = SmallAdapter()
-
-        binding.rcSuggestion.layoutManager = LinearLayoutManager(requireActivity())
+        binding.rcSuggestion.layoutManager = GridLayoutManager(requireActivity(),2)
         binding.rcSuggestion.setHasFixedSize(true)
-        binding.rcSuggestion.adapter = smallAdapt
 
-        smallAdapt.setOnItemClickCallback(object : SmallAdapter.OnItemClickListener{
-            override fun onItemClick() {
-                val intent = Intent(requireActivity(), ForecastActivity::class.java)
-                requireActivity().startActivity(intent)
+        MLVM.getRecommend("Aggressive").observe(viewLifecycleOwner){
+            when(it){
+                is Result.Error -> {}
+                Result.Loading -> {}
+                is Result.Success -> {
+                    val smallAdapt = ReccomAdapter(it.data.recommendations!!)
+                    binding.rcSuggestion.adapter = smallAdapt
+                    smallAdapt.setOnItemClickCallback(object : ReccomAdapter.OnItemClickListener{
+                        override fun onItemClick(stock: String) {
+                            val intent = Intent(requireActivity(), ForecastActivity::class.java)
+                            intent.putExtra("STOCK", stock )
+                            requireActivity().startActivity(intent)
+                        }
+                    })
+                }
             }
-        })
+        }
 
         binding.btnGoals.setOnClickListener{
             val intent = Intent(requireActivity(), RiskActivity::class.java)

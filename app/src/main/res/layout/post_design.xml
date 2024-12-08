@@ -5,20 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgUser"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
     <TextView
         android:id="@+id/txtPostUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/jost"
-        android:text="UsernameUsername"
+        android:text="usernameUsername"
         android:textAppearance="@style/Title"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.026"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imgUser"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -26,7 +36,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:ellipsize="end"
         android:fontFamily="@font/inter_medium"
@@ -39,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPostUser" />
+        app:layout_constraintTop_toBottomOf="@+id/imgUser" />
 
     <View
         android:id="@+id/divider3"
@@ -51,7 +61,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+        app:layout_constraintTop_toBottomOf="@+id/btnLike" />
 
     <TextView
         android:id="@+id/txtDetailCard"
@@ -75,8 +85,8 @@
         android:id="@+id/txtPostTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="18dp"
         android:text="TextView"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,60 +94,59 @@
         app:layout_constraintStart_toEndOf="@+id/txtPostUser"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
+    <ImageButton
+        android:id="@+id/btnLike"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:background="@android:color/transparent"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgPost"
+        app:srcCompat="@drawable/baseline_favorite_border_24"
+        app:tint="@color/blue_main_2" />
+
+    <TextView
+        android:id="@+id/txtNumLike"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/inter_medium"
+        android:maxLength="6"
+        android:text="TextView"
+        android:textAlignment="viewStart"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/btnLike"
+        app:layout_constraintTop_toBottomOf="@+id/imgPost" />
+
+    <ImageButton
+        android:id="@+id/btnComment"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
         android:background="@android:color/transparent"
-        app:cardElevation="0dp"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        app:layout_constraintStart_toEndOf="@+id/txtNumLike"
+        app:layout_constraintTop_toBottomOf="@+id/imgPost"
+        app:srcCompat="@drawable/baseline_comment_24"
+        app:tint="@color/blue_main_2" />
+
+    <ImageView
+        android:id="@+id/imgPost"
+        android:layout_width="360dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="fitXY"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDetailCard">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="visible">
-
-            <ImageButton
-                android:id="@+id/btnLike"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="24dp"
-                android:background="@android:color/transparent"
-                android:scaleX="1.2"
-                android:scaleY="1.2"
-                app:srcCompat="@drawable/baseline_favorite_border_24"
-                app:tint="@color/blue_main_2" />
-
-            <TextView
-                android:id="@+id/txtNumLike"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/inter_medium"
-                android:maxLength="6"
-                android:text="TextView"
-                android:textAlignment="viewStart"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <ImageButton
-                android:id="@+id/btnComment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="18dp"
-                android:background="@android:color/transparent"
-                android:scaleX="1.2"
-                android:scaleY="1.2"
-                app:srcCompat="@drawable/baseline_comment_24"
-                app:tint="@color/blue_main_2" />
-
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toBottomOf="@+id/txtDetailCard"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

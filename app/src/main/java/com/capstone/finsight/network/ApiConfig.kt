@@ -20,5 +20,19 @@ class ApiConfig {
                 .build()
             return retrofit.create(ApiService::class.java)
         }
+
+        fun getApiMLService(): ApiMLService {
+            val loggingInterceptor =
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            val client = OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .build()
+            val retrofit = Retrofit.Builder()
+                .baseUrl("https://finsight-ml-260771957992.asia-southeast2.run.app/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build()
+            return retrofit.create(ApiMLService::class.java)
+        }
     }
 }

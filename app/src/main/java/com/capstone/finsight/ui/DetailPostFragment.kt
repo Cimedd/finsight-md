@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.capstone.finsight.R
 import com.capstone.finsight.adapter.CommentAdapter
 import com.capstone.finsight.data.PostVMF
@@ -57,6 +59,28 @@ class DetailPostFragment : Fragment() {
         binding.txtDetailContent.text = postItem?.content
         binding.txtPostedOn.text = TextFormatter.getDateTime(postItem?.createdAt?.seconds!!, postItem.createdAt.nanoseconds!! )
 
+        if(postItem.postUrl.isNullOrBlank()){
+            binding.imageView5.visibility = View.GONE
+        }
+        else{
+            Glide.with(requireActivity())
+                .load(postItem.postUrl)
+                .override(360,220)
+                .transform(RoundedCorners(10))
+                .into(binding.imageView5)
+        }
+
+        val profile = if (postItem.profileUrl.isNullOrBlank()) R.drawable.example1 else postItem.profileUrl
+        Glide.with(requireActivity())
+            .load(profile)
+            .transform(RoundedCorners(10))
+            .into(binding.imgUser2)
+
+        Glide.with(requireActivity())
+            .load(profile)
+            .transform(RoundedCorners(10))
+            .into(binding.imgUser)
+
         postVM.comment.observe(viewLifecycleOwner){
             when(it){
                 is Result.Error ->{
@@ -67,7 +91,6 @@ class DetailPostFragment : Fragment() {
                 }
                 is Result.Success ->{
                     Log.d("DATA", it.data.toString())
-
                     binding.rcComment.adapter = CommentAdapter(it.data)
                 }
             }

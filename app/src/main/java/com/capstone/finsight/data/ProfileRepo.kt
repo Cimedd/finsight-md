@@ -16,8 +16,8 @@ class ProfileRepo(private val api : ApiService) {
         return api.followUser(body)
     }
 
-    suspend fun setProfileRisk(uid: String, risk : String): GenericResponse{
-        val body = mapOf("uid" to uid, "profileRisk" to risk)
-        return api.updateUser(body)
+    suspend fun getProfileOther(uid: String, followUid : String) : GetProfileResponse{
+        return api.getProfileOther(uid, followUid)
     }
+
 }

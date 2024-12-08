@@ -107,7 +107,7 @@ class ProfileFragment : Fragment() {
                             override fun onItemClick(postItem: PostsItem) {
                                 val bundle = Bundle()
                                 bundle.putString(uid, postItem.authorUid)
-                                findNavController().navigate(R.id.action_itemFeed_to_itemProfile, bundle)
+                                findNavController().navigate(R.id.action_itemProfile_self, bundle)
                             }
                         })
                         adapter.setOnCommentClickCallback(object : PostAdapter.OnItemClickListener{

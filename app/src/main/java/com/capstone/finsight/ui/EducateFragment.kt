@@ -14,7 +14,6 @@ class EducateFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
         }
     }
 
@@ -28,8 +27,10 @@ class EducateFragment : DialogFragment() {
     override fun onStart() {
         super.onStart()
         dialog?.window?.setBackgroundDrawableResource(R.drawable.rounded_dialog)
+        val marginInDp = 16
+        val marginInPx = resources.displayMetrics.density * marginInDp
         dialog?.window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
+            (resources.displayMetrics.widthPixels - (marginInPx * 2)).toInt(),
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
     }

@@ -26,11 +26,13 @@
 
     <TextView
         android:id="@+id/txtUserFollowerCount"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="44dp"
         android:layout_marginTop="4dp"
-        android:text="58 Followers"
+        android:maxLines="5"
+        android:text="0"
+        android:textAlignment="center"
         android:textAppearance="@style/Text1"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -41,14 +43,17 @@
 
     <TextView
         android:id="@+id/txtUserFollowingCount"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="58 Followers"
+        android:maxLines="5"
+        android:text="0"
+        android:textAlignment="center"
         android:textAppearance="@style/Text1"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.525"
         app:layout_constraintStart_toEndOf="@+id/txtUserFollowerCount"
         app:layout_constraintTop_toBottomOf="@+id/txtUserProfileRisk" />
 
@@ -102,15 +107,16 @@
 
     <Button
         android:id="@+id/btnFollow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="136dp"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:text="Follow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.96"
         app:layout_constraintStart_toEndOf="@+id/imgUser"
-        app:layout_constraintTop_toBottomOf="@+id/txtUserProfileRisk" />
+        app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
     <View
         android:id="@+id/divider5"
@@ -120,5 +126,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="37dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="Followers"
+        app:layout_constraintStart_toEndOf="@+id/imgUser"
+        app:layout_constraintTop_toBottomOf="@+id/txtUserFollowerCount" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="Followings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView26"
+        app:layout_constraintTop_toBottomOf="@+id/txtUserFollowingCount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

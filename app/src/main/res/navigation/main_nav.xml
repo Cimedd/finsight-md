@@ -8,27 +8,27 @@
     <fragment
         android:id="@+id/itemHome"
         android:name="com.capstone.finsight.ui.HomeFragment"
-        android:label="fragment_home"
+        android:label="Home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/itemInsight"
         android:name="com.capstone.finsight.ui.InsightFragment"
-        android:label="fragment_insight"
+        android:label="Insight"
         tools:layout="@layout/fragment_insight" />
     <fragment
         android:id="@+id/itemPorto"
         android:name="com.capstone.finsight.ui.PortfolioFragment"
-        android:label="fragment_portofolio"
+        android:label="Portfolio"
         tools:layout="@layout/fragment_portofolio" />
     <fragment
         android:id="@+id/itemSetting"
         android:name="com.capstone.finsight.ui.SettingFragment"
-        android:label="fragment_setting"
+        android:label=""
         tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/itemFeed"
         android:name="com.capstone.finsight.ui.PostFragment"
-        android:label="fragment_post"
+        android:label="Feed"
         tools:layout="@layout/fragment_post" >
         <action
             android:id="@+id/action_itemFeed_to_detailPostFragment"
@@ -37,27 +37,35 @@
             android:id="@+id/action_itemFeed_to_addPostFragment"
             app:destination="@id/addPostFragment" />
         <action
-            android:id="@+id/action_itemFeed_to_itemProfile"
-            app:destination="@id/itemProfile" />
+            android:id="@+id/action_itemFeed_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemProfile"
         android:name="com.capstone.finsight.ui.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="Profile"
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_itemProfile_to_itemSetting"
             app:destination="@id/itemSetting" />
+        <action
+            android:id="@+id/action_itemProfile_self"
+            app:destination="@id/itemProfile" />
     </fragment>
     <fragment
         android:id="@+id/detailPostFragment"
         android:name="com.capstone.finsight.ui.DetailPostFragment"
-        android:label="fragment_detail_post"
+        android:label="Post"
         tools:layout="@layout/fragment_detail_post" >
     </fragment>
     <fragment
         android:id="@+id/addPostFragment"
         android:name="com.capstone.finsight.ui.AddPostFragment"
-        android:label="fragment_add_post"
+        android:label="Add Post"
         tools:layout="@layout/fragment_add_post" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.capstone.finsight.ui.UserProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_user_profile" />
 </navigation>

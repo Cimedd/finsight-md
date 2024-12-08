@@ -51,7 +51,9 @@ class LoginActivity : AppCompatActivity() {
                     }
                     is Result.Loading -> binding.btnLogin.isActivated = false
                     is Result.Success -> {
-                        moveToMain()
+                        val intent = Intent(this, RiskActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     }
                 }
             }
@@ -63,6 +65,7 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
     private fun animation(){
         ObjectAnimator.ofFloat(binding.cardLogin, View.TRANSLATION_Y, 1000f, 0f).setDuration(650).start()
     }

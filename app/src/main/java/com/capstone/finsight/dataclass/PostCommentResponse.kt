@@ -29,5 +29,8 @@ data class CommentsItem(
 	val content: String? = null,
 
 	@field:SerializedName("username")
-	val username: String? = null
+	val username: String? = null,
+	
+	@field:SerializedName("profileUrl")
+	var profileUrl: String? = null
 )

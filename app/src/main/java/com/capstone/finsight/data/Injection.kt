@@ -15,6 +15,11 @@ object Injection {
         return PostRepo(apiService)
     }
 
+    fun provideML(context : Context) : MLRepo{
+        val apiService = ApiConfig.getApiMLService()
+        return MLRepo(apiService)
+    }
+
     fun provideProfile(context : Context) : ProfileRepo{
         val apiService = ApiConfig.getApiService()
         return ProfileRepo(apiService)

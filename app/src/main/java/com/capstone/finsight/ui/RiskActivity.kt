@@ -4,8 +4,12 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.RadioButton
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -25,10 +29,14 @@ class RiskActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRiskBinding
     private var index = 0
     private var uid = ""
-    private val question = arrayListOf("Question 1","Question 2","Question 3", "Question 4")
-    private val profileVM by viewModels<ProfileViewModel> {
-        ProfileVMF.getInstance(this)
-    }
+    private var riskCount = 0
+    private var currentPoint = 0
+    private var question: Array<String> = arrayOf()
+    private var answer10: Array<String> = arrayOf()
+    private var answer8: Array<String> = arrayOf()
+    private var answer6: Array<String> = arrayOf()
+    private var answer4: Array<String> = arrayOf()
+    private var answer2: Array<String> = arrayOf()
 
     private val settingVM by viewModels<SettingViewModel> {
         SettingVMF.getInstance(this)
@@ -40,38 +48,94 @@ class RiskActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+        question = resources.getStringArray(R.array.riskQuestion)
+        answer10 = resources.getStringArray(R.array.riskAnswer1)
+        answer8 = resources.getStringArray(R.array.riskAnswer2)
+        answer6 = resources.getStringArray(R.array.riskAnswer3)
+        answer4 = resources.getStringArray(R.array.riskAnswer4)
+        answer2 = resources.getStringArray(R.array.riskAnswer5)
+
+        setText()
         lifecycleScope.launch {
             uid = settingVM.getUser()
         }
+
         binding.btnNext.setOnClickListener{
             checkProgress()
-            binding.progressBar2.setProgress(index*15,true)
-            nextAnim()
+            binding.progressBar2.setProgress(100/(6 - index),true)
+
         }
 
+        binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            val radioButton = group.findViewById<RadioButton>(checkedId)
+            currentPoint = radioButton.tag.toString().toInt()
+        }
     }
 
     private fun checkProgress(){
-        if(index<6){
+        if(index < question.size - 1){
             index++
+            riskCount += currentPoint
+            setText()
         }
         else{
-            profileVM.setProfileRisk(uid, "Aggresive").observe(this){
+            riskCount += currentPoint
+            val risk = calculate()
+            Log.d("RISK", risk.toString())
+            settingVM.setProfileRisk(uid, risk).observe(this){
                 when(it){
-                    is Result.Error -> {}
+                    is Result.Error -> {
+                        Toast.makeText(this, it.error, Toast.LENGTH_SHORT ).show()
+                    }
                     Result.Loading -> {
-
+                        binding.btnNext.isEnabled = false
                     }
                     is Result.Success -> {
-
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     }
                 }
             }
         }
     }
 
-    private fun startAnim(){
+    private fun calculate() : String{
+        return when (riskCount) {
+            in 36..48 -> "Aggressive"
+            in 24..35 -> "Moderate"
+            in 12..23 -> "Conservative"
+            else -> "Invalid Points" // Handle any invalid input
+        }
+    }
 
+    private fun setText(){
+        binding.txtQuestion.text = question[index]
+        if(answer10[index] != ""){
+            binding.rb1.visibility = View.VISIBLE
+            binding.rb1.text = answer10[index]
+        } else binding.rb1.visibility = View.GONE
+
+        if(answer8[index] != ""){
+            binding.rb2.visibility = View.VISIBLE
+            binding.rb2.text = answer8[index]
+        } else binding.rb2.visibility = View.GONE
+
+        if(answer6[index] != ""){
+            binding.rb3.visibility = View.VISIBLE
+            binding.rb3.text = answer6[index]
+        } else binding.rb3.visibility = View.GONE
+
+        if(answer4[index] != ""){
+            binding.rb4.visibility = View.VISIBLE
+            binding.rb4.text = answer4[index]
+        } else binding.rb4.visibility = View.GONE
+
+        if(answer2[index] != ""){
+            binding.rb5.visibility = View.VISIBLE
+            binding.rb5.text = answer2[index]
+        } else binding.rb5.visibility = View.GONE
+        nextAnim()
     }
 
     private fun nextAnim(){
@@ -85,8 +149,6 @@ class RiskActivity : AppCompatActivity() {
             addListener(object : AnimatorListenerAdapter(){
                 override fun onAnimationEnd(animation: Animator) {
                     super.onAnimationEnd(animation)
-                    binding.txtQuestion.text = question[index]
-
                     binding.txtQuestion.translationX = 1000f
                     binding.txtQuestion.translationX = 1000f
 

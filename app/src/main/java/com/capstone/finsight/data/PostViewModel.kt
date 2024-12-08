@@ -10,14 +10,12 @@ import com.capstone.finsight.dataclass.NewsItem
 import com.capstone.finsight.dataclass.PostsItem
 import com.capstone.finsight.network.Result
 import kotlinx.coroutines.launch
+import java.io.File
 
 class PostViewModel(private val repo : PostRepo): ViewModel() {
 
     private val _post = MutableLiveData<Result<List<PostsItem>>>()
     val post: LiveData<Result<List<PostsItem>>> = _post
-
-    private val _postFol = MutableLiveData<Result<List<PostsItem>>>()
-    val postFol : LiveData<Result<List<PostsItem>>> = _postFol
 
     private val _news = MutableLiveData<Result<List<NewsItem>>>()
     val news : LiveData<Result<List<NewsItem>>> = _news
@@ -38,15 +36,15 @@ class PostViewModel(private val repo : PostRepo): ViewModel() {
     }
 
    suspend fun getFollowingPost(uid: String){
-        _postFol.value = Result.Loading
+       _post.value = Result.Loading
         try
         {
             val response = repo.getFollowPost(uid)
             val posts = response.posts?.filterNotNull() ?: emptyList()
-            _postFol.value = Result.Success(posts)
+            _post.value = Result.Success(posts)
         }
         catch (e:Exception){
-            _postFol.value = Result.Error( e.message ?: "Unknown error")
+            _post.value = Result.Error( e.message ?: "Unknown error")
         }
     }
 
@@ -89,10 +87,10 @@ class PostViewModel(private val repo : PostRepo): ViewModel() {
         }
     }
 
-    fun createPost(id:String, title:String, content:String) = liveData{
+    fun createPost(id:String, title:String, content:String, image : File? = null) = liveData{
         emit(Result.Loading)
         try {
-            val response = repo.createPost(id,title, content)
+            val response = repo.createPost(id,title, content, image)
             if(response.status == "success"){
                 emit(Result.Success(response))
             }

@@ -1,9 +1,12 @@
 package com.capstone.finsight.utils
 
+import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 object TextFormatter {
@@ -12,7 +15,20 @@ object TextFormatter {
         val timestamp = Instant.ofEpochSecond(seconds, nanoseconds.toLong())
             .atZone(ZoneId.systemDefault())
             .toLocalDateTime()
-        return "Posted on $timestamp"
+
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        val formattedTime = timestamp.format(formatter)
+
+        return "Posted on $formattedTime"
+    }
+
+    fun parseTime(time : String) : String{
+        val inputFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", Locale.ENGLISH)
+        val date = inputFormat.parse(time)
+
+        val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+
+        return outputFormat.format(date?: "")
     }
 
     fun formatNumber(number: Int): String {

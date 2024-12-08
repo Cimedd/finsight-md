@@ -34,7 +34,8 @@
                 android:paddingStart="12dp"
                 android:paddingTop="12dp"
                 android:text="@string/placeholder"
-                android:textSize="24sp" />
+                android:textColor="@color/white"
+                android:textSize="20sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

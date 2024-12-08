@@ -5,9 +5,9 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.capstone.finsight.network.Result
 import kotlinx.coroutines.launch
+import java.io.File
 
 class SettingViewModel(private val repo : SettingRepo) : ViewModel() {
-
     fun login(username : String, password : String) = liveData{
         emit(Result.Loading)
         try {
@@ -42,6 +42,32 @@ class SettingViewModel(private val repo : SettingRepo) : ViewModel() {
             emit(Result.Error( e.message ?: "Unknown error"))
         }
     }
+
+    fun setProfileRisk(uid : String, risk : String) = liveData{
+        emit(Result.Loading)
+        try {
+            val response = repo.setProfileRisk(uid,risk)
+            if(response.status == "success"){
+                emit(Result.Success(response))
+            }
+        }
+        catch (e : Exception){
+            emit(Result.Error( e.message ?: "Unknown error"))
+        }
+    }
+
+    fun setImage(file : File) = liveData{
+        emit(Result.Loading)
+        try {
+            val response = repo.setImage(file)
+            if(response.status == "success"){
+                emit(Result.Success(response))
+            }
+        }
+        catch (e : Exception){
+            emit(Result.Error( e.message ?: "Unknown error"))
+        }
+    }
     suspend fun checkUser(): Boolean{
         return repo.checkUser()
     }
@@ -49,5 +75,10 @@ class SettingViewModel(private val repo : SettingRepo) : ViewModel() {
     suspend fun getUser() : String{
         return repo.getUser()
     }
+
+    suspend fun logout(){
+        repo.logout()
+    }
+
 
 }

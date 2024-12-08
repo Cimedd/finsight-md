@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.finsight.databinding.CardSmallBinding
+import com.capstone.finsight.dataclass.Recommendation
 
 class SmallAdapter() : RecyclerView.Adapter<SmallAdapter.ListViewHolder>() {
     private lateinit var onItemClickListener: OnItemClickListener
@@ -17,6 +18,9 @@ class SmallAdapter() : RecyclerView.Adapter<SmallAdapter.ListViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
+//        with(holder.binding){
+//            txtLine.text = list[position].ticker
+//        }
         holder.itemView.setOnClickListener{
             onItemClickListener.onItemClick()
         }

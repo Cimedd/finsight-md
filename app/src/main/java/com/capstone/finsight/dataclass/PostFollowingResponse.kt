@@ -58,5 +58,10 @@ data class PostsItem(
 	@field:SerializedName("liked")
 	var liked: Boolean = false,
 
+	@field:SerializedName("postUrl")
+	var postUrl: String? = null,
+
+	@field:SerializedName("profileUrl")
+	var profileUrl: String? = null,
 
 ): Parcelable

@@ -37,25 +37,42 @@
         app:layout_constraintTop_toBottomOf="@+id/txtQuestion">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/rb1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:tag="10"
             android:text="RadioButton"
             android:visibility="visible" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/rb2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:tag="8"
             android:text="RadioButton"
             android:visibility="visible" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/rb3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:tag="6"
             android:text="RadioButton"
             android:visibility="visible" />
+
+        <RadioButton
+            android:id="@+id/rb4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:tag="4"
+            android:text="RadioButton" />
+
+        <RadioButton
+            android:id="@+id/rb5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:tag="2"
+            android:text="RadioButton" />
     </RadioGroup>
 
     <ProgressBar
@@ -78,12 +95,14 @@
         android:id="@+id/txtQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
         android:fontFamily="@font/inter_medium"
         android:text="TextView"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.067"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar2" />
 

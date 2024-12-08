@@ -1,9 +1,13 @@
 package com.capstone.finsight.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.RoundedCorner
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.capstone.finsight.R
 import com.capstone.finsight.databinding.PostDesignBinding
 import com.capstone.finsight.dataclass.PostsItem
@@ -33,11 +37,29 @@ class PostAdapter(private val list : List<PostsItem>) : RecyclerView.Adapter<Pos
                 btnLike.setImageResource(R.drawable.baseline_favorite_border_24)
             }
 
-//            txtPostUser.setOnClickListener{onProfileClickListener.onItemClick(list[position])}
+            txtPostUser.setOnClickListener{onProfileClickListener.onItemClick(list[position])}
 
             txtPostTime.text = TextFormatter.getPostInterval(
                 list[position].createdAt?.seconds ?: 0, list[position].createdAt?.nanoseconds ?: 0
             )
+
+            val profile = if (list[position].profileUrl.isNullOrBlank()) R.drawable.example1 else list[position].profileUrl
+            Glide.with(holder.itemView.context)
+                .load(profile)
+                .into(imgUser)
+
+            Log.d("URL", list[position].profileUrl.toString())
+            Log.d("URL", list[position].postUrl.toString())
+            if(list[position].postUrl.isNullOrBlank()){
+                imgPost.visibility = View.GONE
+            }
+            else{
+                Glide.with(holder.itemView.context)
+                    .load(list[position].postUrl)
+                    .override(360,220)
+                    .transform(RoundedCorners(10))
+                    .into(imgPost)
+            }
 
             txtNumLike.text = TextFormatter.formatNumber(list[position].likes ?: 0)
 

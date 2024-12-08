@@ -1,6 +1,7 @@
 package com.capstone.finsight.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -50,6 +51,8 @@ class FeedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val type = arguments?.getInt(Type, 0)
+        Log.d("TYPE", type.toString())
         binding.rcFeed.layoutManager = LinearLayoutManager(requireActivity())
         binding.rcFeed.setHasFixedSize(true)
 
@@ -69,8 +72,8 @@ class FeedFragment : Fragment() {
                         adapter.setOnProfileClickCallback(object : PostAdapter.OnItemClickListener{
                             override fun onItemClick(postItem: PostsItem) {
                                 val bundle = Bundle()
-                                bundle.putString(uid, postItem.authorUid)
-                                findNavController().navigate(R.id.action_itemFeed_to_itemProfile, bundle)
+                                bundle.putString("Profile", postItem.authorUid)
+                                findNavController().navigate(R.id.action_itemFeed_to_userProfileFragment, bundle)
                             }
                         })
                         adapter.setOnCommentClickCallback(object : PostAdapter.OnItemClickListener{
@@ -97,8 +100,6 @@ class FeedFragment : Fragment() {
                 }
             }
         }
-
-        val type = arguments?.getInt(Type, 0)
         lifecycleScope.launch {
             val uid = settingVM.getUser()
             if(type == 0){

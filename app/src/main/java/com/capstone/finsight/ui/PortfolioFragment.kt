@@ -35,34 +35,34 @@ class PortfolioFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rcPorto.layoutManager = LinearLayoutManager(requireActivity())
-        binding.rcPorto.setHasFixedSize(true)
-        binding.rcPorto.adapter = SmallAdapter()
-
-        val pieChart: PieChart = binding.chart2
-
-        // Create data entries for the pie chart
-        val pieEntries = listOf(
-            PieEntry(30f, "Category A"),
-            PieEntry(50f, "Category B"),
-            PieEntry(20f, "Category C")
-        )
-
-        // Create a PieDataSet
-        val pieDataSet = PieDataSet(pieEntries, "Category Breakdown")
-        pieDataSet.colors = listOf(
-            requireContext().getColor(R.color.purple_500),
-            requireContext().getColor(R.color.teal_200),
-            requireContext().getColor(R.color.white)
-        )
-        // Create PieData and set it to the PieChart
-        val pieData = PieData(pieDataSet)
-        pieChart.data = pieData
-
-        // Customize the chart
-        pieChart.animateY(1000)
-        pieChart.isDrawHoleEnabled = true
-        pieChart.holeRadius = 40f
+//        binding.rcPorto.layoutManager = LinearLayoutManager(requireActivity())
+//        binding.rcPorto.setHasFixedSize(true)
+//        binding.rcPorto.adapter = SmallAdapter()
+//
+//        val pieChart: PieChart = binding.chart2
+//
+//        // Create data entries for the pie chart
+//        val pieEntries = listOf(
+//            PieEntry(30f, "Category A"),
+//            PieEntry(50f, "Category B"),
+//            PieEntry(20f, "Category C")
+//        )
+//
+//        // Create a PieDataSet
+//        val pieDataSet = PieDataSet(pieEntries, "Category Breakdown")
+//        pieDataSet.colors = listOf(
+//            requireContext().getColor(R.color.purple_500),
+//            requireContext().getColor(R.color.teal_200),
+//            requireContext().getColor(R.color.white)
+//        )
+//        // Create PieData and set it to the PieChart
+//        val pieData = PieData(pieDataSet)
+//        pieChart.data = pieData
+//
+//        // Customize the chart
+//        pieChart.animateY(1000)
+//        pieChart.isDrawHoleEnabled = true
+//        pieChart.holeRadius = 40f
 
 
     }
