@@ -2,6 +2,7 @@ package com.capstone.finsight.ui
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -14,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.capstone.finsight.R
 import com.capstone.finsight.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.io.InputStream
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
@@ -37,12 +39,14 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        supportActionBar?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this, R.color.WhiteBlack)))
-
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this, R.color.appbar)))
+        supportActionBar?.elevation = 0f;
+        
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.navHost)
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
+
 }

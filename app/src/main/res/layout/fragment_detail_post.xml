@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
-        app:cardBackgroundColor="@color/design_default_color_background"
+        app:cardBackgroundColor="@color/appbar"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -124,11 +124,12 @@
                     android:maxLength="400" />
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/txtSendChat"
+                    android:layout_width="34dp"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/baseline_send_24" />
+                    android:src="@drawable/baseline_send_24"
+                    android:tint="@color/BlackWhite" />
             </LinearLayout>
         </LinearLayout>
 

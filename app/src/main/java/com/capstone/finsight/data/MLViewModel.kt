@@ -1,5 +1,6 @@
 package com.capstone.finsight.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,6 +21,19 @@ class MLViewModel(private val repo: MLRepo) : ViewModel() {
         emit(Result.Loading)
         try {
             val response = repo.getRecommend(risk)
+            if(response.status == "success"){
+                emit(Result.Success(response))
+            }
+        }
+        catch (e : Exception){
+            emit(Result.Error( e.message ?: "Unknown error"))
+        }
+    }
+
+    fun getAll() = liveData {
+        emit(Result.Loading)
+        try {
+            val response = repo.getAll()
             if(response.status == "success"){
                 emit(Result.Success(response))
             }

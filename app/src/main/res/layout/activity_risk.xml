@@ -14,9 +14,10 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="24dp"
-        android:fontFamily="@font/jost"
-        android:text="@string/placeholder"
+        android:fontFamily="@font/inter_medium"
+        android:text="Profile Risk Assessment"
         android:textAppearance="@style/Title3"
+        android:textColor="@color/BlackWhite"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -40,8 +41,11 @@
             android:id="@+id/rb1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_medium"
             android:tag="10"
             android:text="RadioButton"
+            android:textColor="@color/BlackWhite"
+            android:textSize="14sp"
             android:visibility="visible" />
 
         <RadioButton
@@ -50,29 +54,37 @@
             android:layout_height="wrap_content"
             android:tag="8"
             android:text="RadioButton"
+            android:textColor="@color/BlackWhite"
             android:visibility="visible" />
 
         <RadioButton
             android:id="@+id/rb3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_medium"
             android:tag="6"
             android:text="RadioButton"
+            android:textColor="@color/BlackWhite"
+            android:textSize="14sp"
             android:visibility="visible" />
 
         <RadioButton
             android:id="@+id/rb4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_medium"
             android:tag="4"
-            android:text="RadioButton" />
+            android:text="RadioButton"
+            android:textColor="@color/BlackWhite" />
 
         <RadioButton
             android:id="@+id/rb5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_medium"
             android:tag="2"
-            android:text="RadioButton" />
+            android:text="RadioButton"
+            android:textColor="@color/BlackWhite" />
     </RadioGroup>
 
     <ProgressBar
@@ -93,13 +105,14 @@
 
     <TextView
         android:id="@+id/txtQuestion"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/inter_medium"
         android:text="TextView"
+        android:textColor="@color/BlackWhite"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -108,12 +121,13 @@
 
     <Button
         android:id="@+id/btnNext"
-        style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:text="Button"
+        android:text="Next"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="20sp"
+        app:cornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.925"

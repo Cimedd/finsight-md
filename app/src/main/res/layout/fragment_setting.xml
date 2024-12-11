@@ -86,7 +86,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView3"
-        tools:layout_editor_absoluteY="304dp" />
+        tools:layout_editor_absoluteY="320dp" />
 
     <Switch
         android:id="@+id/switch2"

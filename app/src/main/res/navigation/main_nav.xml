@@ -9,17 +9,20 @@
         android:id="@+id/itemHome"
         android:name="com.capstone.finsight.ui.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_itemHome_to_detailNewsFragment"
+            app:destination="@id/detailNewsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/itemInsight"
         android:name="com.capstone.finsight.ui.InsightFragment"
         android:label="Insight"
-        tools:layout="@layout/fragment_insight" />
-    <fragment
-        android:id="@+id/itemPorto"
-        android:name="com.capstone.finsight.ui.PortfolioFragment"
-        android:label="Portfolio"
-        tools:layout="@layout/fragment_portofolio" />
+        tools:layout="@layout/fragment_insight" >
+        <action
+            android:id="@+id/action_itemInsight_to_detailNewsFragment"
+            app:destination="@id/detailNewsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/itemSetting"
         android:name="com.capstone.finsight.ui.SettingFragment"
@@ -67,5 +70,19 @@
         android:id="@+id/userProfileFragment"
         android:name="com.capstone.finsight.ui.UserProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_user_profile" />
+        tools:layout="@layout/fragment_user_profile" >
+        <action
+            android:id="@+id/action_userProfileFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailNewsFragment"
+        android:name="com.capstone.finsight.ui.DetailNewsFragment"
+        android:label="News"
+        tools:layout="@layout/fragment_detail_news" />
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.capstone.finsight.ui.ChatFragment"
+        android:label="Chat"
+        tools:layout="@layout/fragment_chat" />
 </navigation>

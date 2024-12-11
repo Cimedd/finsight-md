@@ -11,6 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.capstone.finsight.R
 import com.capstone.finsight.adapter.PostAdapter
 import com.capstone.finsight.data.PostVMF
@@ -72,7 +74,11 @@ class ProfileFragment : Fragment() {
                         binding.imgUser.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.login_gradient))
                     }
                     is Result.Success ->{
-                        binding.imgUser.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.login_gradient))
+                        val profile = if (it.data.user?.profileURL.isNullOrBlank()) R.drawable.example1 else it.data.user?.profileURL
+                        Glide.with(requireActivity())
+                            .load(profile)
+                            .transform(RoundedCorners(10))
+                            .into(binding.imgUser)
                         binding.txtProfileUname.text = it.data.user?.username ?: "User not found"
                         binding.txtProfileRisk.text = it.data.user?.profileRisk ?: "-"
                         binding.txtFollowingCount.text = TextFormatter.formatNumber(it.data.user?.followings ?: 0)

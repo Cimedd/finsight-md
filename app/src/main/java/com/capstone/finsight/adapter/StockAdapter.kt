@@ -22,18 +22,18 @@ class StockAdapter(private val list: List<Recommendation>) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         with(holder.binding){
             txtStockCode.text = list[position].ticker
-            txtStockName.text = "Rp." + list[position].price
+            txtStockName.text = if(list[position].price != null) list[position].price.toString() else "-"
             Glide.with(holder.itemView.context)
                 .load(list[position].imageUrl)
                 .into(imgUser)
         }
         holder.itemView.setOnClickListener{
-            onItemClickListener.onItemClick(list[position].ticker)
+            onItemClickListener.onItemClick(list[position].ticker.toString())
         }
     }
 
     override fun getItemCount(): Int {
-        return 4
+        return list.size
     }
 
     interface OnItemClickListener  {

@@ -17,9 +17,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class PostFragment : Fragment() {
     private lateinit var binding : FragmentPostBinding
-    private val postVM by viewModels<PostViewModel>{
-        PostVMF.getInstance(requireActivity())
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {

@@ -84,13 +84,10 @@ class DetailPostFragment : Fragment() {
         postVM.comment.observe(viewLifecycleOwner){
             when(it){
                 is Result.Error ->{
-
                 }
                 Result.Loading ->{
-
                 }
                 is Result.Success ->{
-                    Log.d("DATA", it.data.toString())
                     binding.rcComment.adapter = CommentAdapter(it.data)
                 }
             }
@@ -106,12 +103,15 @@ class DetailPostFragment : Fragment() {
             postVM.createComment(userID, postID, binding.txtAddComments.text.toString()).observe(viewLifecycleOwner){
                 when(it){
                     is Result.Error ->{
+                        binding.rcComment.alpha = 1f
                         binding.rcComment.isEnabled = true
                     }
                     Result.Loading ->{
+                        binding.rcComment.alpha = 0.5f
                         binding.rcComment.isEnabled = false
                     }
                     is Result.Success ->{
+                        binding.rcComment.alpha = 1f
                         binding.rcComment.isEnabled = true
                         postVM.getPostComments(postID)
                     }

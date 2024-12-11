@@ -23,8 +23,8 @@ class PostRepo(private val api : ApiService) {
     suspend fun getPostComment(id:String): PostCommentResponse{
         return api.getComment(id)
     }
-    suspend fun getNews() : NewsResponse {
-        return api.getNews()
+    suspend fun getNews(date : String) : NewsResponse {
+        return api.getNews(date)
     }
     suspend fun createPost(uid:String, title: String, content:String, image: File? = null): GenericResponse{
         val bodyUid = uid.toRequestBody("text/plain".toMediaType())

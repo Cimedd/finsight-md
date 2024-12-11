@@ -1,5 +1,6 @@
 package com.capstone.finsight.network
 
+import com.capstone.finsight.dataclass.ChatResponse
 import com.capstone.finsight.dataclass.GetPostResponse
 import com.capstone.finsight.dataclass.GetProfileResponse
 import com.capstone.finsight.dataclass.PostCommentResponse
@@ -23,6 +24,7 @@ import retrofit2.http.Query
 
 interface ApiService {
 
+    //auth
     @POST("auth/login")
     suspend fun login(
         @Body login : Map<String,String>
@@ -33,6 +35,7 @@ interface ApiService {
         @Body register : RegisterRequest
     ): ResponseRegister
 
+//    profile
     @GET("users/profile/{uid}")
     suspend fun getProfile(
         @Path("uid") uid: String
@@ -59,6 +62,7 @@ interface ApiService {
         @Part image: MultipartBody.Part
     ): GenericResponse
 
+    //post
     @GET("posts/all/{uid}")
     suspend fun getAllPost(
         @Path("uid") userId: String
@@ -72,9 +76,6 @@ interface ApiService {
     suspend fun getComment(
         @Path("postId") id: String
     ): PostCommentResponse
-
-    @GET("news")
-    suspend fun getNews() : NewsResponse
 
     @Multipart
     @POST("posts/create")
@@ -95,4 +96,23 @@ interface ApiService {
         @Body like : Map<String,String>
     ): GenericResponse
 
+
+    //news
+    @GET("news/{date}")
+    suspend fun getNews(
+        @Path("date") userId: String
+    ) : NewsResponse
+
+    //chat
+    @GET("users/chat/{sender}/{receiver}")
+    suspend fun getChat(
+        @Path("sender") userId: String,
+        @Path("receiver") receiverID: String
+    ) : ChatResponse
+
+    @POST("users/chat")
+    suspend fun postChat(
+        @Body chat : Map<String,String>
+    )
+    :GenericResponse
 }

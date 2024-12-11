@@ -11,11 +11,19 @@ data class RecommendResponse(
 	val status: String? = null
 )
 
+data class StocksResponse(
+
+	@field:SerializedName("stocks")
+	val recommendations: List<Recommendation>? = null,
+
+	@field:SerializedName("status")
+	val status: String? = null
+)
 data class Recommendation(
 	@field:SerializedName("current_price")
-	val price : Int,
+	val price : Float? = null,
 	@field:SerializedName("image_url")
-	val imageUrl : String,
+	val imageUrl : String? = null,
 	@field:SerializedName("ticker")
-	val ticker : String
+	val ticker : String? = null
 )

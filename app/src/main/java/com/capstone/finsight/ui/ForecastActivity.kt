@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.viewModels
@@ -26,11 +27,14 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
+import kotlin.math.pow
 
 class ForecastActivity : AppCompatActivity() {
     private lateinit var binding : ActivityForecastBinding
 
     private var percentage = 0f
+    private var stock = ""
+    private var step = 1
     private val MLVM by viewModels<MLViewModel> {
         MLVMF.getInstance(this)
     }
@@ -44,13 +48,12 @@ class ForecastActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val stock = intent.getStringExtra("STOCK")
-        Log.d("stock", stock.toString())
-
-        if (stock != null) {
-            MLVM.getForecast("ADRO.JK", 1)
-            binding.textView14.text = stock
-        }
+        binding.chart2.visibility = View.GONE
+        stock = intent.getStringExtra("STOCK").toString()
+        Log.d("stock", stock)
+        setChoose()
+        MLVM.getForecast(stock, step)
+        binding.textView14.text = stock
 
         MLVM.plot.observe(this){
             when(it){
@@ -58,15 +61,23 @@ class ForecastActivity : AppCompatActivity() {
                     binding.txtDataStatus.text = "Failled to get data"
                     binding.progressBar3.visibility = View.GONE
                     Toast.makeText(this, it.error, Toast.LENGTH_SHORT).show()
+                    binding.btn1.isEnabled = true
+                    binding.btn2.isEnabled = true
+                    binding.btn3.isEnabled = true
                 }
                 Result.Loading -> {
                     binding.txtDataStatus.text = "Fetching Stocks Data"
-                    binding.chart2.visibility = View.GONE
+                    binding.btn1.isEnabled = false
+                    binding.btn2.isEnabled = false
+                    binding.btn3.isEnabled = false
                 }
                 is Result.Success -> {
                     binding.progressBar3.visibility = View.GONE
                     binding.txtDataStatus.visibility = View.GONE
                     binding.chart2.visibility = View.VISIBLE
+                    binding.btn1.isEnabled = true
+                    binding.btn2.isEnabled = true
+                    binding.btn3.isEnabled = true
                     Toast.makeText(this, "SUCCESS", Toast.LENGTH_SHORT).show()
                     val lineChart: LineChart = binding.chart2
                     val prediction = it.data.prediction
@@ -78,69 +89,141 @@ class ForecastActivity : AppCompatActivity() {
                     }
 
                     val dataSet = LineDataSet(entries, "Price Prediction").apply {
-                        // Customization options
                         color = Color.BLUE
-                        setCircleColor(Color.RED)
+                        setCircleColor(ContextCompat.getColor(this@ForecastActivity, R.color.blue_main3))
                         lineWidth = 1f
                         circleRadius = 1f
                         setDrawCircleHole(false)
                         valueTextSize = 6f
                         setDrawFilled(true)
-                        fillColor = Color.LTGRAY
+                        fillColor = ContextCompat.getColor(this@ForecastActivity, R.color.blue_main3)
+                        valueTextColor = ContextCompat.getColor(this@ForecastActivity, R.color.BlackWhite)
                     }
 
                     val lineData = LineData(dataSet)
-
-                    // Customize chart
                     lineChart.apply {
-                        // Disable description
                         description.isEnabled = false
 
-                        // Enable touch gestures
                         setTouchEnabled(true)
 
-                        // Enable scaling and dragging
                         isDragEnabled = true
                         setScaleEnabled(true)
                         setPinchZoom(true)
 
-                        // X-axis configuration
                         xAxis.apply {
                             position = XAxis.XAxisPosition.BOTTOM
                             setDrawGridLines(false)
-                            axisLineColor = Color.BLACK
-                            textColor = Color.BLACK
+                            axisLineColor = ContextCompat.getColor(this@ForecastActivity, R.color.BlackWhite)
+                            textColor = ContextCompat.getColor(this@ForecastActivity, R.color.BlackWhite)
 
                             valueFormatter = IndexAxisValueFormatter(parsedDate)
                         }
 
-                        // Y-axis configuration
                         axisLeft.apply {
                             setDrawGridLines(true)
                             gridColor = Color.LTGRAY
-                            axisLineColor = Color.BLACK
-                            textColor = Color.BLACK
+                            axisLineColor = ContextCompat.getColor(this@ForecastActivity, R.color.BlackWhite)
+                            textColor = ContextCompat.getColor(this@ForecastActivity, R.color.BlackWhite)
                         }
 
-                        // Hide right Y-axis
                         axisRight.isEnabled = false
-
-                        // Set the data
                         data = lineData
 
-                        // Animate the chart (optional)
                         animateX(1000)
-
-                        // Refresh the chart
                         invalidate()
                     }
                 }
             }
         }
+
+        binding.btn1.setOnClickListener {
+            step = 1
+            reForecast()
+        }
+
+        binding.btn2.setOnClickListener {
+            step = 2
+            reForecast()
+        }
+
+        binding.btn3.setOnClickListener {
+            step = 3
+            reForecast()
+        }
+
+        binding.btnCalculate.setOnClickListener {
+            predictStock()
+        }
     }
 
-    private fun setChart(prediction: Prediction){
-        Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show()
+    private fun reForecast(){
+        setChoose()
+        MLVM.getForecast(stock,step)
+        binding.progressBar3.visibility = View.VISIBLE
+        binding.txtDataStatus.visibility = View.VISIBLE
+        binding.btn1.isEnabled = false
+        binding.btn2.isEnabled = false
+        binding.btn3.isEnabled = false
+    }
+    private fun setChoose(){
+       binding.btn1.apply {
+           if(step == 1){
+               setTextColor(ContextCompat.getColor(this@ForecastActivity, R.color.white))
+               setBackgroundColor(ContextCompat.getColor(this@ForecastActivity, R.color.blue_main_2))
+           }
+           else{
+               setTextColor(ContextCompat.getColor(this@ForecastActivity, R.color.blue_main_2))
+               setBackgroundColor(ContextCompat.getColor(this@ForecastActivity, R.color.WhiteBlack))
+           }
+       }
 
+        binding.btn2.apply {
+            if(step == 2){
+                setTextColor(ContextCompat.getColor(this@ForecastActivity, R.color.white))
+                setBackgroundColor(ContextCompat.getColor(this@ForecastActivity, R.color.blue_main_2))
+            }
+            else{
+                setTextColor(ContextCompat.getColor(this@ForecastActivity, R.color.blue_main_2))
+                setBackgroundColor(ContextCompat.getColor(this@ForecastActivity, R.color.WhiteBlack))
+            }
+        }
+
+        binding.btn3.apply {
+            if(step == 3){
+                setTextColor(ContextCompat.getColor(this@ForecastActivity, R.color.white))
+                setBackgroundColor(ContextCompat.getColor(this@ForecastActivity, R.color.blue_main_2))
+            }
+            else{
+                setTextColor(ContextCompat.getColor(this@ForecastActivity, R.color.blue_main_2))
+                setBackgroundColor(ContextCompat.getColor(this@ForecastActivity, R.color.WhiteBlack))
+            }
+        }
+    }
+    private fun predictStock(){
+        val initialAmount = binding.txtInvest.text.toString().toDouble()
+        val calc = initialAmount * (1 + (percentage / 100).toDouble()).pow(1 / step.toDouble())
+        val difference = calc - initialAmount
+        Log.d("CALC", difference.toString())
+        val formatDif = TextFormatter.formatToRupiah(difference)
+        if(difference < 0){
+            binding.txtReturn.apply {
+                text = TextFormatter.formatToRupiah(calc)
+                setTextColor(ContextCompat.getColor(this@ForecastActivity, R.color.red))
+            }
+            binding.txtProfit.apply {
+                text = "$formatDif"
+                setTextColor(ContextCompat.getColor(this@ForecastActivity, R.color.red))
+            }
+        }
+        else{
+            binding.txtReturn.apply {
+                text = TextFormatter.formatToRupiah(calc)
+                setTextColor(ContextCompat.getColor(this@ForecastActivity, R.color.green))
+            }
+            binding.txtProfit.apply {
+                text = "+$formatDif"
+                setTextColor(ContextCompat.getColor(this@ForecastActivity, R.color.green))
+            }
+        }
     }
 }

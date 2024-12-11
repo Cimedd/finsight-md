@@ -78,7 +78,7 @@ class AddPostFragment : Fragment() {
         lifecycleScope.launch {
             val id = settingVM.getUser()
 
-            binding.btnAddPost.setOnClickListener {
+            binding.btnAddPhoto.setOnClickListener {
                 launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
             }
 

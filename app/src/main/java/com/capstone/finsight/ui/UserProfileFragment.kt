@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -39,6 +40,9 @@ class UserProfileFragment : Fragment() {
         SettingVMF.getInstance(requireActivity())
     }
 
+    private var receiveID = ""
+    private var userID = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -56,14 +60,16 @@ class UserProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val id: String = arguments?.getString("Profile") ?: ""
+        receiveID = arguments?.getString("Profile") ?: ""
         Log.d("id", id.toString())
-        var uid = ""
         binding.rcUserProfile.layoutManager = LinearLayoutManager(requireActivity())
         binding.rcUserProfile.setHasFixedSize(true)
         lifecycleScope.launch {
-            uid = settingVM.getUser()
-            profileVM.getProfileOther(uid, id).observe(viewLifecycleOwner){
+            userID = settingVM.getUser()
+            if(userID == receiveID){
+                disable()
+            }
+            profileVM.getProfileOther(userID, receiveID).observe(viewLifecycleOwner){
                 when(it){
                     is Result.Error -> {
                         binding.imgUser.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.login_gradient))
@@ -96,7 +102,7 @@ class UserProfileFragment : Fragment() {
 
                         binding.btnFollow.setOnClickListener {
                             data.isFollow = !data.isFollow
-                            profileVM.followUser(uid, id)
+                            profileVM.followUser(userID, receiveID)
                             if(data.isFollow){
                                 binding.txtUserFollowerCount.text = TextFormatter.formatNumber(binding.txtUserFollowerCount.text.toString().toInt() + 1)
                                 binding.btnFollow.text = "Followed"
@@ -114,19 +120,29 @@ class UserProfileFragment : Fragment() {
             }
         }
 
+        binding.btnChat.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("RECEIVED", receiveID)
+            bundle.putString("USERID", userID)
+            findNavController().navigate(R.id.action_userProfileFragment_to_chatFragment, bundle)
+        }
+
         postVM.post.observe(viewLifecycleOwner){
             when(it){
                 is Result.Error -> {
-
                 }
                 Result.Loading -> {
-
                 }
                 is Result.Success -> {
                     binding.rcUserProfile.adapter = PostAdapter(it.data)
                 }
             }
         }
+    }
+
+    private fun disable(){
+        binding.btnFollow.visibility = View.GONE
+        binding.btnChat.visibility = View.GONE
     }
 
     companion object {

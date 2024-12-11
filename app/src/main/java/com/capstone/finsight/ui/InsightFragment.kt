@@ -15,6 +15,7 @@ import com.capstone.finsight.data.PostViewModel
 import com.capstone.finsight.databinding.ActivityMainBinding
 import com.capstone.finsight.databinding.FragmentInsightBinding
 import com.capstone.finsight.network.Result
+import com.capstone.finsight.utils.TextFormatter
 
 class InsightFragment : Fragment() {
     private lateinit var binding : FragmentInsightBinding
@@ -37,7 +38,6 @@ class InsightFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        postVM.getNews()
         binding.rcNews.layoutManager = LinearLayoutManager(requireActivity())
         binding.rcNews.setHasFixedSize(true)
 
@@ -51,6 +51,7 @@ class InsightFragment : Fragment() {
             }
         }
 
+        postVM.getNews(TextFormatter.getTodayDate())
         val smallAdapt = SmallAdapter()
 
         binding.rcFaq.layoutManager = LinearLayoutManager(requireActivity())

@@ -74,12 +74,12 @@ class PostViewModel(private val repo : PostRepo): ViewModel() {
         }
     }
 
-    fun getNews(){
+    fun getNews(date: String){
         viewModelScope.launch {
             _news.value = Result.Loading
             try {
-                val response = repo.getNews()
-                val news = response.allNewsContent?.aMZN?.filterNotNull() ?: emptyList()
+                val response = repo.getNews(date)
+                val news = response.news?.filterNotNull() ?: emptyList()
                 _news.value = Result.Success(news)
             } catch (e: Exception) {
                 _news.value = Result.Error(e.message ?: "Unknown error")

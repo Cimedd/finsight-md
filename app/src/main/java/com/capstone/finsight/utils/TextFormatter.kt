@@ -1,11 +1,13 @@
 package com.capstone.finsight.utils
 
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
@@ -56,5 +58,41 @@ object TextFormatter {
             else -> "$days days ago"
         }
     }
+
+    fun getTodayDate() : String{
+        val dateFormat = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
+        val today = Date()
+        return dateFormat.format(today)
+    }
+
+    fun formatToRupiah(amount: Double): String {
+        val localeID = Locale("id", "ID") // Locale for Indonesia
+        val numberFormat = NumberFormat.getCurrencyInstance(localeID)
+        return numberFormat.format(amount).replace("Rp", "Rp ") // Add space after Rp
+    }
+
+    fun splitIntoParagraphs(text: String, sentencesPerParagraph: Int = 3): String {
+        val sentenceRegex = Regex("(?<=[.!?])\\s+")
+        val sentences = text.trim().split(sentenceRegex)
+
+        val paragraphs = mutableListOf<String>()
+        val currentParagraph = mutableListOf<String>()
+
+        for (sentence in sentences) {
+            currentParagraph.add(sentence)
+
+            if (currentParagraph.size >= sentencesPerParagraph) {
+                paragraphs.add(currentParagraph.joinToString(" "))
+                currentParagraph.clear()
+            }
+        }
+
+        if (currentParagraph.isNotEmpty()) {
+            paragraphs.add(currentParagraph.joinToString(" "))
+        }
+
+        return paragraphs.joinToString("\n\n")
+    }
+
 
 }
