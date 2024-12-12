@@ -11,6 +11,7 @@ data class GenericResponse(
 	val status: String? = null
 )
 
+data class FAQ(val question : String, val answer : String)
 data class ResponseLogin(
 
 	@field:SerializedName("message")

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.finsight.R
 import com.capstone.finsight.adapter.NewsAdapter
@@ -14,6 +15,8 @@ import com.capstone.finsight.data.PostVMF
 import com.capstone.finsight.data.PostViewModel
 import com.capstone.finsight.databinding.ActivityMainBinding
 import com.capstone.finsight.databinding.FragmentInsightBinding
+import com.capstone.finsight.dataclass.FAQ
+import com.capstone.finsight.dataclass.NewsItem
 import com.capstone.finsight.network.Result
 import com.capstone.finsight.utils.TextFormatter
 
@@ -46,13 +49,31 @@ class InsightFragment : Fragment() {
                 is Result.Error -> {}
                 Result.Loading -> {}
                 is Result.Success -> {
-                    binding.rcNews.adapter = NewsAdapter(it.data)
+                    val newsAdapter = NewsAdapter(it.data)
+                    binding.rcNews.adapter = newsAdapter
+                    newsAdapter.setOnItemClickCallback(object : NewsAdapter.OnItemClickListener{
+                        override fun onItemClick(news: NewsItem) {
+                            val bundle = Bundle()
+                            bundle.putParcelable("NEWS", news)
+                            findNavController().navigate(R.id.action_itemInsight_to_detailNewsFragment, bundle)
+                        }
+                    })
                 }
             }
         }
 
         postVM.getNews(TextFormatter.getTodayDate())
-        val smallAdapt = SmallAdapter()
+
+
+        val question = resources.getStringArray(R.array.riskQuestion)
+        val ans = resources.getStringArray(R.array.riskQuestion)
+        var listFAQ : MutableList<FAQ> = mutableListOf()
+
+        question.forEachIndexed { index, s ->
+            listFAQ.add(FAQ(s, ans[index]))
+        }
+
+        val smallAdapt = SmallAdapter(listFAQ)
 
         binding.rcFaq.layoutManager = LinearLayoutManager(requireActivity())
         binding.rcFaq.setHasFixedSize(true)
@@ -60,9 +81,11 @@ class InsightFragment : Fragment() {
 
         smallAdapt.setOnItemClickCallback(object : SmallAdapter.OnItemClickListener{
             override fun onItemClick() {
+                val educateFrag = EducateFragment().apply {  }
                 EducateFragment().show(parentFragmentManager,"Educate")
             }
         })
+
 
     }
     companion object {

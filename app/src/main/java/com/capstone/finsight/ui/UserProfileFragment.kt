@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -134,7 +135,31 @@ class UserProfileFragment : Fragment() {
                 Result.Loading -> {
                 }
                 is Result.Success -> {
-                    binding.rcUserProfile.adapter = PostAdapter(it.data)
+                    val adapter = PostAdapter(it.data)
+                    binding.rcUserProfile.adapter = adapter
+                    adapter.setOnProfileClickCallback(object : PostAdapter.OnItemClickListener{
+                        override fun onItemClick(postItem: PostsItem) {
+                        }
+                    })
+                    adapter.setOnCommentClickCallback(object : PostAdapter.OnItemClickListener{
+                        override fun onItemClick(postItem: PostsItem) {
+                            val bundle = Bundle()
+                            bundle.putParcelable("PostItem", postItem)
+                            findNavController().navigate(R.id.action_userProfileFragment_to_detailPostFragment, bundle)
+                        }
+                    })
+                    adapter.setOnLikeClickCallback(object : PostAdapter.OnItemClickListener{
+                        override fun onItemClick(postItem: PostsItem) {
+                            postVM.postLike(receiveID,postItem.id?: "")
+                        }
+                    })
+                    adapter.setOnItemClickCallback(object : PostAdapter.OnItemClickListener{
+                        override fun onItemClick(postItem: PostsItem) {
+                            val bundle = Bundle()
+                            bundle.putParcelable("PostItem", postItem)
+                            findNavController().navigate(R.id.action_userProfileFragment_to_detailPostFragment, bundle)
+                        }
+                    })
                 }
             }
         }

@@ -29,7 +29,7 @@ class ReccomAdapter(private val list: List<Recommendation>) : RecyclerView.Adapt
                 .into(imageView6)
         }
         holder.itemView.setOnClickListener{
-            onItemClickListener.onItemClick(list[position].ticker.toString())
+            onItemClickListener.onItemClick(list[position].ticker.toString(), list[position].desc.toString() )
         }
     }
 
@@ -38,6 +38,6 @@ class ReccomAdapter(private val list: List<Recommendation>) : RecyclerView.Adapt
     }
 
     interface OnItemClickListener  {
-        fun onItemClick(stock : String)
+        fun onItemClick(stock : String, desc : String)
     }
 }

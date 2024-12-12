@@ -60,22 +60,19 @@ class PostAdapter(private val list : List<PostsItem>) : RecyclerView.Adapter<Pos
                     .transform(RoundedCorners(10))
                     .into(imgPost)
             }
-
-            txtNumLike.text = TextFormatter.formatNumber(list[position].likes ?: 0)
-
             btnComment.setOnClickListener{onCommentClickListener.onItemClick(list[position])}
 
             btnLike.setOnClickListener{
                 list[position].liked = !list[position].liked
                 if(list[position].liked)
                 {
-                    val num = list[position].likes?.plus(1)
-                    txtNumLike.text = TextFormatter.formatNumber(num ?: 0)
+//                    val num = list[position].likes?.plus(1)
+//                    txtNumLike.text = TextFormatter.formatNumber(num ?: 0)
                     btnLike.setImageResource(R.drawable.baseline_favorite_24)
                 }
                 else{
-                    val num = txtNumLike.text.toString().toInt() - 1
-                    txtNumLike.text = TextFormatter.formatNumber(num )
+//                    val num = txtNumLike.text.toString().toInt() - 1
+//                    txtNumLike.text = TextFormatter.formatNumber(num )
                     btnLike.setImageResource(R.drawable.baseline_favorite_border_24)
                 }
                 onLikeClickListener.onItemClick(list[position])}

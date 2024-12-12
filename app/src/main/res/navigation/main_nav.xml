@@ -3,22 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
+    android:label="Finsight"
     app:startDestination="@id/itemHome">
 
     <fragment
         android:id="@+id/itemHome"
         android:name="com.capstone.finsight.ui.HomeFragment"
-        android:label="Home"
-        tools:layout="@layout/fragment_home" >
+        android:label="FinSight"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_itemHome_to_detailNewsFragment"
             app:destination="@id/detailNewsFragment" />
+        <action
+            android:id="@+id/action_itemHome_to_itemInsight"
+            app:destination="@id/itemInsight" />
+        <action
+            android:id="@+id/action_itemHome_to_forecastFragment"
+            app:destination="@id/forecastFragment" />
+        <action
+            android:id="@+id/action_itemHome_to_itemProfile"
+            app:destination="@id/itemProfile" />
     </fragment>
     <fragment
         android:id="@+id/itemInsight"
         android:name="com.capstone.finsight.ui.InsightFragment"
         android:label="Insight"
-        tools:layout="@layout/fragment_insight" >
+        tools:layout="@layout/fragment_insight">
         <action
             android:id="@+id/action_itemInsight_to_detailNewsFragment"
             app:destination="@id/detailNewsFragment" />
@@ -32,7 +42,7 @@
         android:id="@+id/itemFeed"
         android:name="com.capstone.finsight.ui.PostFragment"
         android:label="Feed"
-        tools:layout="@layout/fragment_post" >
+        tools:layout="@layout/fragment_post">
         <action
             android:id="@+id/action_itemFeed_to_detailPostFragment"
             app:destination="@id/detailPostFragment" />
@@ -42,25 +52,30 @@
         <action
             android:id="@+id/action_itemFeed_to_userProfileFragment"
             app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_itemFeed_to_chatListFragment"
+            app:destination="@id/chatListFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemProfile"
         android:name="com.capstone.finsight.ui.ProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_itemProfile_to_itemSetting"
             app:destination="@id/itemSetting" />
         <action
             android:id="@+id/action_itemProfile_self"
             app:destination="@id/itemProfile" />
+        <action
+            android:id="@+id/action_itemProfile_to_detailPostFragment"
+            app:destination="@id/detailPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailPostFragment"
         android:name="com.capstone.finsight.ui.DetailPostFragment"
         android:label="Post"
-        tools:layout="@layout/fragment_detail_post" >
-    </fragment>
+        tools:layout="@layout/fragment_detail_post"></fragment>
     <fragment
         android:id="@+id/addPostFragment"
         android:name="com.capstone.finsight.ui.AddPostFragment"
@@ -70,10 +85,13 @@
         android:id="@+id/userProfileFragment"
         android:name="com.capstone.finsight.ui.UserProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_user_profile" >
+        tools:layout="@layout/fragment_user_profile">
         <action
             android:id="@+id/action_userProfileFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_detailPostFragment"
+            app:destination="@id/detailPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailNewsFragment"
@@ -85,4 +103,18 @@
         android:name="com.capstone.finsight.ui.ChatFragment"
         android:label="Chat"
         tools:layout="@layout/fragment_chat" />
+    <fragment
+        android:id="@+id/chatListFragment"
+        android:name="com.capstone.finsight.ui.ChatListFragment"
+        android:label="Chat"
+        tools:layout="@layout/fragment_chat_list">
+        <action
+            android:id="@+id/action_chatListFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forecastFragment"
+        android:name="com.capstone.finsight.ui.ForecastFragment"
+        android:label="Forecast"
+        tools:layout="@layout/fragment_forecast" />
 </navigation>

@@ -1,6 +1,7 @@
 package com.capstone.finsight.network
 
 import com.capstone.finsight.dataclass.ChatResponse
+import com.capstone.finsight.dataclass.ChatUser
 import com.capstone.finsight.dataclass.GetPostResponse
 import com.capstone.finsight.dataclass.GetProfileResponse
 import com.capstone.finsight.dataclass.PostCommentResponse
@@ -10,6 +11,7 @@ import com.capstone.finsight.dataclass.GenericResponse
 import com.capstone.finsight.dataclass.NewsResponse
 import com.capstone.finsight.dataclass.ResponseLogin
 import com.capstone.finsight.dataclass.ResponseRegister
+import com.capstone.finsight.dataclass.UserChatResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -62,6 +64,16 @@ interface ApiService {
         @Part image: MultipartBody.Part
     ): GenericResponse
 
+    @GET("users/followers/{uid}")
+    suspend fun getFollowing(
+        @Path("uid") userId: String
+    ): UserChatResponse
+
+    @GET("users/followings/{uid}")
+    suspend fun getFollower(
+        @Path("uid") userId: String
+    ): UserChatResponse
+
     //post
     @GET("posts/all/{uid}")
     suspend fun getAllPost(
@@ -109,6 +121,11 @@ interface ApiService {
         @Path("sender") userId: String,
         @Path("receiver") receiverID: String
     ) : ChatResponse
+
+    @GET("users/chat/{uid}")
+    suspend fun getChatLog(
+        @Path("uid") userId: String,
+    ) : UserChatResponse
 
     @POST("users/chat")
     suspend fun postChat(

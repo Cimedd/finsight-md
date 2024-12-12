@@ -111,21 +111,17 @@ class ProfileFragment : Fragment() {
                         binding.rcProfile.adapter = adapter
                         adapter.setOnProfileClickCallback(object : PostAdapter.OnItemClickListener{
                             override fun onItemClick(postItem: PostsItem) {
-                                val bundle = Bundle()
-                                bundle.putString(uid, postItem.authorUid)
-                                findNavController().navigate(R.id.action_itemProfile_self, bundle)
                             }
                         })
                         adapter.setOnCommentClickCallback(object : PostAdapter.OnItemClickListener{
                             override fun onItemClick(postItem: PostsItem) {
                                 val bundle = Bundle()
                                 bundle.putParcelable("PostItem", postItem)
-                                findNavController().navigate(R.id.action_itemFeed_to_detailPostFragment, bundle)
+                                findNavController().navigate(R.id.action_itemProfile_to_detailPostFragment, bundle)
                             }
                         })
                         adapter.setOnLikeClickCallback(object : PostAdapter.OnItemClickListener{
                             override fun onItemClick(postItem: PostsItem) {
-                                Toast.makeText(requireActivity(), "LIKED", Toast.LENGTH_SHORT).show()
                                 postVM.postLike(uid,postItem.id?: "")
                             }
                         })
@@ -133,7 +129,7 @@ class ProfileFragment : Fragment() {
                             override fun onItemClick(postItem: PostsItem) {
                                 val bundle = Bundle()
                                 bundle.putParcelable("PostItem", postItem)
-                                findNavController().navigate(R.id.action_itemFeed_to_detailPostFragment, bundle)
+                                findNavController().navigate(R.id.action_itemProfile_to_detailPostFragment, bundle)
                             }
                         })
                     }

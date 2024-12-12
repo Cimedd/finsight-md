@@ -1,21 +1,20 @@
 package com.capstone.finsight.adapter
 
 import android.view.LayoutInflater
-import android.view.RoundedCorner
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.capstone.finsight.R
 import com.capstone.finsight.databinding.CardNewsBinding
+import com.capstone.finsight.databinding.NewsHomeBinding
 import com.capstone.finsight.dataclass.NewsItem
 
-class NewsAdapter(private val list : List<NewsItem>) : RecyclerView.Adapter<NewsAdapter.ListViewHolder>() {
+class HomeNewsAdapter(private val list : List<NewsItem>) : RecyclerView.Adapter<HomeNewsAdapter.ListViewHolder>() {
     private lateinit var onItemClickListener: OnItemClickListener
-    class ListViewHolder(var binding : CardNewsBinding) : RecyclerView.ViewHolder(binding.root)
+    class ListViewHolder(var binding : NewsHomeBinding) : RecyclerView.ViewHolder(binding.root)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val binding = CardNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = NewsHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ListViewHolder(binding)
     }
 
@@ -28,11 +27,10 @@ class NewsAdapter(private val list : List<NewsItem>) : RecyclerView.Adapter<News
             Glide.with(holder.itemView.context)
                 .load(image)
                 .transform(RoundedCorners(20))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(imageView3)
-            txtNewsTitle.text = list[position].title ?: "NEWS TITLE"
-            txtCode.text = list[position].code ?: ""
-            txtNewsDate.text = list[position].dateText ?: "00-00-0000"
+                .into(imageView7)
+            txtNewsTitleHome.text = list[position].title ?: "NEWS TITLE"
+            txtCodeHome.text = list[position].code ?: ""
+            txtNewsDateHome.text = list[position].dateText ?: "00-00-0000"
         }
 
         holder.itemView.setOnClickListener{

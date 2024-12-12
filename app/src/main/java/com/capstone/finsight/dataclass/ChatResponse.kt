@@ -11,6 +11,15 @@ data class ChatResponse(
 	val status: String? = null
 )
 
+data class UserChatResponse(
+
+	@field:SerializedName("users")
+	val chats: List<ChatUser>? = null,
+
+	@field:SerializedName("status")
+	val status: String? = null
+)
+
 data class ChatsItem(
 
 	@field:SerializedName("createdAt")
@@ -32,5 +41,23 @@ data class ChatsItem(
 	val senderUsername: String? = null,
 
 	@field:SerializedName("receiverUsername")
-	val receiverUsername: String? = null
+	val receiverUsername: String? = null,
+
+	@field:SerializedName("receiverProfileUrl")
+	val receiverUrl: String? = null,
+
+	@field:SerializedName("senderProfileUrl")
+	val senderUrl: String? = null
+
 )
+
+data class ChatUser(
+	@field:SerializedName("username")
+	val username: String? = null,
+
+	@field:SerializedName("uid")
+	val uid: String? = null,
+
+	@field:SerializedName("profileUrl")
+	val imageUrl: String? = null,
+	)

@@ -34,8 +34,9 @@ class DetailNewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val news: NewsItem? = arguments?.getParcelable("NEWS")
         binding.txtDetailNewsTitl.text = news?.title
-        binding.txtNewsAuthor.text = news?.publisherAuthor
+        binding.txtNewsAuthor.text = news?.publisherAuthor ?: ""
         binding.txtDateNews.text = news?.dateText
+        binding.txtCodeNews.text = news?.code
         val profile = if (news?.imgUrl.isNullOrBlank()) R.drawable.example1 else news?.imgUrl
         binding.ttxtContentNews.text = TextFormatter.splitIntoParagraphs(news?.content ?: "")
         Glide.with(requireActivity())

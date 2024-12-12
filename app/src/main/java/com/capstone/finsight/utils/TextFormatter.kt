@@ -1,5 +1,6 @@
 package com.capstone.finsight.utils
 
+import com.capstone.finsight.R
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.time.Instant
@@ -93,6 +94,5 @@ object TextFormatter {
 
         return paragraphs.joinToString("\n\n")
     }
-
-
 }
+

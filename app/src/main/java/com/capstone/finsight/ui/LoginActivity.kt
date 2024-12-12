@@ -41,8 +41,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener{
-            val uname =binding.editTextText.text.toString()
-            val pass = binding.editTextTextPassword.text.toString()
+            val uname =binding.txtLogEmail.text.toString()
+            val pass = binding.txtLogPass.text.toString()
             settingVM.login(uname, pass).observe(this){
                 when(it){
                     is Result.Error -> {

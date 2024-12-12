@@ -59,4 +59,51 @@
         <item>Sell all</item>
     </string-array>
 
+    <string-array name="faq_questions">
+        <item>What are stocks?</item>
+        <item>What is the stock market?</item>
+        <item>Why do stock prices change?</item>
+        <item>What is the difference between stocks and bonds?</item>
+        <item>How does the app help me with stock investments?</item>
+        <item>What is a portfolio?</item>
+        <item>What is diversification?</item>
+        <item>What is risk tolerance?</item>
+        <item>What is an ETF (Exchange-Traded Fund)?</item>
+        <item>How do I set my risk profile in the app?</item>
+        <item>What is machine learning, and how does it help with investment predictions?</item>
+        <item>What is market sentiment, and how does it affect stock prices?</item>
+        <item>Can I rely on the app’s predictions?</item>
+        <item>What is fundamental analysis?</item>
+        <item>What is technical analysis?</item>
+        <item>What are dividends?</item>
+        <item>What is a bull market?</item>
+        <item>What is a bear market?</item>
+        <item>How do I track my portfolio’s performance?</item>
+        <item>How often are the recommendations updated?</item>
+    </string-array>
+
+    <string-array name="faq_answers">
+        <item>Stocks represent ownership in a company. When you buy a stock, you own a portion of that company. As the company grows and becomes more valuable, the price of its stock may increase, and you could profit by selling your stock for a higher price. Stocks can also pay dividends, which are payments to shareholders from the company’s profits.</item>
+        <item>The stock market is a marketplace where investors buy and sell shares of publicly traded companies. It\'s made up of exchanges like the New York Stock Exchange (NYSE) and NASDAQ, where investors can trade stocks, bonds, and other securities. The stock market is a vital part of the economy, allowing companies to raise capital and giving investors the opportunity to share in a company’s success.</item>
+        <item>Stock prices fluctuate based on supply and demand. If more people want to buy a stock (demand), the price goes up. Conversely, if more people want to sell a stock (supply), the price goes down. Factors influencing stock prices include company performance, economic conditions, market sentiment, news, and events that impact the company or industry.</item>
+        <item>Stocks represent ownership in a company, whereas bonds are loans that investors make to companies or governments. When you buy a bond, you’re lending money to the issuer in exchange for regular interest payments and the promise that the principal will be repaid at a future date. Stocks carry more risk but offer higher potential returns, while bonds are generally safer with lower returns.</item>
+        <item>Our app uses machine learning to analyze stock data and trends, helping you make informed investment decisions. By assessing your financial goals and risk tolerance, the app provides personalized recommendations, suggesting stocks, bonds, mutual funds, and other investment options that align with your profile.</item>
+        <item>A portfolio is a collection of investments owned by an individual or entity. A well-diversified portfolio includes a mix of assets such as stocks, bonds, mutual funds, and real estate to reduce risk. The goal is to balance potential returns with acceptable levels of risk based on your financial goals and timeline.</item>
+        <item>Diversification is an investment strategy that involves spreading investments across different asset classes (stocks, bonds, real estate, etc.) and sectors (technology, healthcare, energy, etc.) to reduce risk. By diversifying, you lower the chance of losing all your money if one investment performs poorly.</item>
+        <item>Risk tolerance is your ability and willingness to endure market volatility and potential losses. If you\'re comfortable with the possibility of short-term losses in exchange for the potential for higher returns, you might have a high-risk tolerance. Conversely, if you prefer to avoid risk and prefer steady, predictable returns, you may have a low-risk tolerance.</item>
+        <item>An ETF is a type of investment fund that holds a collection of assets, such as stocks, bonds, or commodities. Unlike mutual funds, ETFs are traded on stock exchanges, just like individual stocks. They provide a way for investors to diversify their portfolios with a single investment.</item>
+        <item>Your risk profile is determined by answering questions about your financial situation, investment goals, and how you would react to market volatility. Based on your responses, the app categorizes you as a conservative, moderate, or aggressive investor, which helps tailor the investment recommendations to your comfort level.</item>
+        <item>Machine learning (ML) is a subset of artificial intelligence that allows algorithms to automatically learn from data and make predictions without explicit programming. The app uses ML to analyze vast amounts of historical stock data, financial reports, and market trends to make educated predictions about which investments may be the most profitable based on your risk profile.</item>
+        <item>Market sentiment refers to the overall attitude of investors toward a particular stock or the stock market in general. It can be positive (bullish) or negative (bearish). Sentiment is influenced by news, reports, and public perception. Positive sentiment may drive stock prices up, while negative sentiment can cause prices to fall. The app uses sentiment analysis from social media and news articles to inform its investment recommendations.</item>
+        <item>While the app provides predictions based on sophisticated data analysis, it\'s important to remember that the stock market is influenced by many unpredictable factors, such as economic events, geopolitical developments, and investor emotions. The app’s recommendations are designed to help guide your decisions, but always conduct your own research and consider consulting a financial advisor.</item>
+        <item>Fundamental analysis is the process of evaluating a company’s financial health by examining its financial statements, earnings reports, management, and economic factors. Investors use this analysis to determine whether a stock is undervalued or overvalued, helping them make informed decisions about buying or selling.</item>
+        <item>Technical analysis involves studying past market data, primarily stock prices and trading volumes, to forecast future price movements. It relies on chart patterns, indicators, and trends rather than the financial health of a company. Traders use technical analysis to make short-term investment decisions.</item>
+        <item>Dividends are payments made by a company to its shareholders from its profits. Companies that pay dividends typically do so on a quarterly basis. Dividends can provide a steady stream of income for investors, in addition to any capital gains from selling the stock at a higher price.</item>
+        <item>A bull market refers to a period in which the prices of stocks are rising or are expected to rise. It’s typically characterized by investor confidence, economic growth, and strong corporate earnings. Bull markets can last for months or years, but they eventually give way to bear markets.</item>
+        <item>A bear market is the opposite of a bull market. It refers to a prolonged period where stock prices are falling, often by 20% or more from their recent highs. Bear markets can be triggered by economic downturns, recessions, or other factors that lead to pessimism in the market.</item>
+        <item>You can track your portfolio’s performance directly within the app. It provides real-time data, including the current value of your holdings, their performance over time, and any changes in the value of your investments based on market conditions.</item>
+        <item>The app updates recommendations based on the latest available data. As market conditions, stock prices, and financial news change, the app’s algorithms reassess the best options for your portfolio and provide updated investment suggestions to help you achieve your financial goals.</item>
+    </string-array>
+
+
 </resources>

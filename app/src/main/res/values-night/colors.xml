@@ -16,4 +16,5 @@
     <color name="green">#008000</color>
     <color name="red">#e80202</color>
     <color name="appbar">#FF121212</color>
+    <color name="card">#212121</color>
 </resources>

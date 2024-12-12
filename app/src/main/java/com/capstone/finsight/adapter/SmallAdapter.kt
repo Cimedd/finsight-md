@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.finsight.databinding.CardSmallBinding
+import com.capstone.finsight.dataclass.FAQ
 import com.capstone.finsight.dataclass.Recommendation
 
-class SmallAdapter() : RecyclerView.Adapter<SmallAdapter.ListViewHolder>() {
+class SmallAdapter(private val list : List<FAQ>) : RecyclerView.Adapter<SmallAdapter.ListViewHolder>() {
     private lateinit var onItemClickListener: OnItemClickListener
     class ListViewHolder(var binding : CardSmallBinding) : RecyclerView.ViewHolder(binding.root)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SmallAdapter.ListViewHolder {

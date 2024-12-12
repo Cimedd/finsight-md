@@ -3,6 +3,8 @@ package com.capstone.finsight.ui
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -34,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.itemHome, R.id.itemFeed, R.id.itemInsight, R.id.itemProfile
+                R.id.itemHome, R.id.itemFeed, R.id.itemInsight
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -49,4 +51,27 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val navController = findNavController(R.id.navHost)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            menu?.clear()
+            when (destination.id) {
+                R.id.itemFeed -> {
+                    menuInflater.inflate(R.menu.feed_menu, menu)
+                }
+            }
+        }
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val navController = findNavController(R.id.navHost)
+        return when (item.itemId) {
+            R.id.itemChatLog -> {
+                navController.navigate(R.id.action_itemFeed_to_chatListFragment)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 }

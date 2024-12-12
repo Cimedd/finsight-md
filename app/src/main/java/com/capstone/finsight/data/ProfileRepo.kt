@@ -3,6 +3,7 @@ package com.capstone.finsight.data
 import com.capstone.finsight.dataclass.ChatResponse
 import com.capstone.finsight.dataclass.GetProfileResponse
 import com.capstone.finsight.dataclass.GenericResponse
+import com.capstone.finsight.dataclass.UserChatResponse
 import com.capstone.finsight.network.ApiService
 import kotlinx.coroutines.flow.Flow
 
@@ -27,6 +28,10 @@ class ProfileRepo(private val api : ApiService) {
 
     suspend fun getChat(sender : String, receiver : String): ChatResponse{
         return api.getChat(sender,receiver)
+    }
+
+    suspend fun getChatLog(sender: String) : UserChatResponse{
+        return api.getChatLog(sender)
     }
 
 }

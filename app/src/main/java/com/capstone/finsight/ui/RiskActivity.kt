@@ -136,6 +136,10 @@ class RiskActivity : AppCompatActivity() {
             binding.rb5.text = answer2[index]
         } else binding.rb5.visibility = View.GONE
         nextAnim()
+
+        if(index == 5){
+            binding.btnNext.text = "Finish"
+        }
     }
 
     private fun nextAnim(){

@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
+    android:background="@color/WhiteBlack"
     tools:context=".ui.EducateFragment">
 
     <TextView
@@ -18,6 +19,7 @@
         android:fontFamily="@font/jost"
         android:text="TextView"
         android:textAppearance="@style/Title3"
+        android:textColor="@color/BlackWhite"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -31,14 +33,16 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/inter_medium"
-        android:maxLines="6"
         android:scrollbarAlwaysDrawHorizontalTrack="true"
         android:scrollbars="vertical"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet orci imperdiet, rutrum velit sed, varius risus. Integer commodo feugiat velit et mattis. Vivamus scelerisque, dui accumsan tincidunt tempor, sem ipsum fringilla sapien, non interdum sem massa eu felis. Fusce tincidunt suscipit purus, et dignissim orci laoreet et. Maecenas auctor pellentesque erat, eget euismod magna placerat a. Nullam vel nibh posuere, mollis ex nec, malesuada eros. Nullam maximus consequat cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a neque eget massa iaculis mattis et sit amet justo. Curabitur lacinia in lorem quis volutpat.
 
 Proin interdum sit amet quam quis imperdiet. Duis mi nulla, ornare non mauris elementum, tincidunt bibendum ipsum. Nunc placerat quis dolor vel suscipit. Nam sollicitudin eleifend elit, sed tristique lacus interdum vitae. Nam viverra eros at mauris tempus, ac bibendum lacus feugiat. Sed suscipit eros ut mi dictum lobortis. In auctor consequat diam vel ullamcorper. Nullam ac semper metus. Sed non efficitur risus. Sed id enim condimentum, dignissim est quis, vestibulum felis. Pellentesque feugiat felis justo, non posuere ex dapibus vel. Nullam porttitor lacinia magna sed porta."
         android:textAppearance="@style/Text1"
+        android:textColor="@color/BlackWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

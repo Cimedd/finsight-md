@@ -9,10 +9,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.capstone.finsight.R
+import com.capstone.finsight.adapter.HomeNewsAdapter
 import com.capstone.finsight.adapter.NewsAdapter
 import com.capstone.finsight.adapter.ReccomAdapter
 import com.capstone.finsight.adapter.SmallAdapter
@@ -25,8 +29,10 @@ import com.capstone.finsight.data.SettingVMF
 import com.capstone.finsight.data.SettingViewModel
 import com.capstone.finsight.databinding.FragmentHomeBinding
 import com.capstone.finsight.dataclass.NewsItem
+import com.capstone.finsight.dataclass.Recommendation
 import com.capstone.finsight.network.Result
 import com.capstone.finsight.utils.TextFormatter
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
     private lateinit var binding : FragmentHomeBinding
@@ -40,10 +46,13 @@ class HomeFragment : Fragment() {
     private val MLVM by viewModels<MLViewModel> {
         MLVMF.getInstance(requireActivity())
     }
+    private lateinit var stockAdapter : StockAdapter
+
+    private var stocksData : List<Recommendation> = listOf()
+    private var stockAll = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
         }
     }
 
@@ -57,7 +66,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rcHomeNews.layoutManager = LinearLayoutManager(requireActivity())
+        binding.rcHomeNews.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding.rcHomeNews.setHasFixedSize(true)
 
         binding.rcSuggestion.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
@@ -70,9 +79,9 @@ class HomeFragment : Fragment() {
                 is Result.Error -> {}
                 Result.Loading -> {}
                 is Result.Success -> {
-                    val newsAdapter = NewsAdapter(it.data)
+                    val newsAdapter = HomeNewsAdapter(it.data)
                     binding.rcHomeNews.adapter = newsAdapter
-                    newsAdapter.setOnItemClickCallback(object : NewsAdapter.OnItemClickListener{
+                    newsAdapter.setOnItemClickCallback(object : HomeNewsAdapter.OnItemClickListener{
                         override fun onItemClick(news: NewsItem) {
                             val bundle = Bundle()
                             bundle.putParcelable("NEWS", news)
@@ -84,18 +93,21 @@ class HomeFragment : Fragment() {
         }
         postVM.getNews(TextFormatter.getTodayDate())
 
-        MLVM.getRecommend("Moderate").observe(viewLifecycleOwner){
-            when(it){
-                is Result.Error -> {}
-                Result.Loading -> {}
-                is Result.Success -> {
-                    val smallAdapt = ReccomAdapter(it.data.recommendations!!)
-                    binding.rcSuggestion.adapter = smallAdapt
-                    smallAdapt.setOnItemClickCallback(object : ReccomAdapter.OnItemClickListener{
-                        override fun onItemClick(stock: String) {
-                            forecast(stock)
-                        }
-                    })
+        lifecycleScope.launch {
+            val risk = settingVM.getRisk()
+            MLVM.getRecommend(risk).observe(viewLifecycleOwner){
+                when(it){
+                    is Result.Error -> {}
+                    Result.Loading -> {}
+                    is Result.Success -> {
+                        val smallAdapt = ReccomAdapter(it.data.recommendations!!)
+                        binding.rcSuggestion.adapter = smallAdapt
+                        smallAdapt.setOnItemClickCallback(object : ReccomAdapter.OnItemClickListener{
+                            override fun onItemClick(stock: String, desc : String) {
+                                forecast(stock, desc)
+                            }
+                        })
+                    }
                 }
             }
         }
@@ -103,26 +115,60 @@ class HomeFragment : Fragment() {
         MLVM.getAll().observe(viewLifecycleOwner){
             when(it){
                 is Result.Error -> { Toast.makeText(requireActivity(), it.error, Toast.LENGTH_SHORT).show()}
-                Result.Loading -> { }
+                Result.Loading -> {}
                 is Result.Success -> {
-                    val adapter = StockAdapter(it.data.recommendations!!)
-                    binding.rcMarket.adapter = adapter
-                    adapter.setOnItemClickCallback(object : StockAdapter.OnItemClickListener{
-                        override fun onItemClick(stock: String) {
-                            forecast(stock)
+                    stocksData = it.data.recommendations!!
+                    stockAdapter = StockAdapter(stocksData.take(3))
+                    binding.rcMarket.adapter = stockAdapter
+                    stockAdapter.setOnItemClickCallback(object : StockAdapter.OnItemClickListener{
+                        override fun onItemClick(stock: String, desc : String) {
+                            forecast(stock, desc)
                         }
                     })
                 }
             }
         }
+
+        binding.txtNewsAll.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_itemHome_to_itemInsight,  // Your navigation action ID
+                null,
+                NavOptions.Builder()
+                    .setPopUpTo(R.id.itemHome, true)  // Clears 'itemHome' from the back stack
+                    .build()
+            )
+        }
+
+        Glide.with(this)
+            .load(R.drawable.example1)
+            .into(binding.imgUser)
+
+        binding.cardView3.setOnClickListener{
+            findNavController().navigate(R.id.action_itemHome_to_itemProfile)
+        }
+
+        binding.txtStocksAll.setOnClickListener {
+            if(!stockAll){
+                binding.txtStocksAll.text = "See Less"
+                stockAdapter = StockAdapter(stocksData)
+                binding.rcMarket.adapter = stockAdapter
+                stockAll = true
+            }
+            else{
+                binding.txtStocksAll.text = "See More"
+                stockAdapter = StockAdapter(stocksData.take(3))
+                binding.rcMarket.adapter = stockAdapter
+                stockAll = false
+            }
+        }
     }
 
-    private fun forecast(stock:String){
-        val intent = Intent(requireActivity(), ForecastActivity::class.java)
-        intent.putExtra("STOCK", stock )
-        requireActivity().startActivity(intent)
+    private fun forecast(stock:String, desc : String){
+        val bundle = Bundle()
+        bundle.putString("STOCK", stock)
+        bundle.putString("DESC", stock)
+        findNavController().navigate(R.id.action_itemHome_to_forecastFragment, bundle)
     }
-
 
 
     companion object {

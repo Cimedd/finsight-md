@@ -24,6 +24,8 @@ data class Recommendation(
 	val price : Float? = null,
 	@field:SerializedName("image_url")
 	val imageUrl : String? = null,
+	@field:SerializedName("description")
+	val desc : String? = null,
 	@field:SerializedName("ticker")
 	val ticker : String? = null
 )

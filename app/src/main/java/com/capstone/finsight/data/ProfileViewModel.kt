@@ -76,5 +76,17 @@ class ProfileViewModel(private val repo: ProfileRepo) : ViewModel(){
         }
     }
 
+    fun getChatLog(sender: String) = liveData {
+        emit(Result.Loading)
+        try {
+            val response = repo.getChatLog(sender)
+            if(response.status == "success"){
+                emit(Result.Success(response))
+            }
+        }
+        catch (e : Exception){
+            emit(Result.Error( e.message ?: "Unknown error"))
+        }
+    }
 
 }

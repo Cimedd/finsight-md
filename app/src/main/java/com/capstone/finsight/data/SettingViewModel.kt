@@ -76,6 +76,10 @@ class SettingViewModel(private val repo : SettingRepo) : ViewModel() {
         return repo.getUser()
     }
 
+    suspend fun getRisk() : String{
+        return repo.getRisk()
+    }
+
     suspend fun logout(){
         repo.logout()
     }
