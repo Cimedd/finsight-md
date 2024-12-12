@@ -16,11 +16,11 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 
 class SettingPref private constructor(private val dataStore: DataStore<Preferences>) {
     private val userId = stringPreferencesKey("id")
-    private val token = stringPreferencesKey("token")
     private val username = stringPreferencesKey("username")
     private val userImage = stringPreferencesKey("imagePath")
     private val theme = booleanPreferencesKey("theme")
     private val profileRisk = stringPreferencesKey("risk")
+    private val notification = booleanPreferencesKey("notification")
 
     fun getThemeSetting(): Flow<Boolean> {
         return dataStore.data.map { preferences ->
@@ -31,6 +31,19 @@ class SettingPref private constructor(private val dataStore: DataStore<Preferenc
     suspend fun saveThemeSetting(isDarkModeActive: Boolean) {
         dataStore.edit { preferences ->
             preferences[theme] = isDarkModeActive
+        }
+    }
+
+    fun getNotificationSetting(): Flow<Boolean> {
+        return dataStore.data.map { preferences ->
+            preferences[notification] ?: false
+        }
+    }
+
+    suspend fun saveNotificationSetting(isTrue: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[notification] = isTrue
+            Log.d("NOTIFs",preferences[notification].toString() )
         }
     }
 
@@ -52,34 +65,32 @@ class SettingPref private constructor(private val dataStore: DataStore<Preferenc
         }
     }
 
-    suspend fun saveImageURL(url: String) {
-        dataStore.edit { preferences ->
-            preferences[userImage] = url
-        }
-    }
-
-
-    suspend fun loggedIn(user : String, name : String, tokens: String){
+    suspend fun loggedIn(user : String, name : String, url: String){
         dataStore.edit { preferences ->
             preferences[userId] = user
-            preferences[token] = tokens
+            preferences[userImage] = url
             preferences[username] = name
-            Log.d("logged in", name + "" + tokens)
         }
     }
 
     suspend fun loggedOut(){
         dataStore.edit { preferences ->
             preferences[userId] = ""
-            preferences[token] = ""
             preferences[username] = ""
             preferences[profileRisk] = ""
+            preferences[userImage] = ""
         }
     }
 
     fun checkUser():Flow<String>{
         return dataStore.data.map { preferences ->
             preferences[userId] ?: ""
+        }
+    }
+
+    fun getName():Flow<String>{
+        return dataStore.data.map { preferences ->
+            preferences[username] ?: ""
         }
     }
 

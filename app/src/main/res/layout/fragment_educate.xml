@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="500dp"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
-    android:background="@color/WhiteBlack"
+    android:background="@color/appbar"
     tools:context=".ui.EducateFragment">
 
     <TextView
         android:id="@+id/textView19"
         android:layout_width="322dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="24dp"
         android:fontFamily="@font/jost"
         android:text="TextView"
         android:textAppearance="@style/Title3"
         android:textColor="@color/BlackWhite"
-        android:textSize="34sp"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,11 +30,12 @@
         android:id="@+id/textView20"
         android:layout_width="0dp"
         android:layout_height="400dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/inter_medium"
+        android:isScrollContainer="true"
         android:scrollbarAlwaysDrawHorizontalTrack="true"
         android:scrollbars="vertical"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet orci imperdiet, rutrum velit sed, varius risus. Integer commodo feugiat velit et mattis. Vivamus scelerisque, dui accumsan tincidunt tempor, sem ipsum fringilla sapien, non interdum sem massa eu felis. Fusce tincidunt suscipit purus, et dignissim orci laoreet et. Maecenas auctor pellentesque erat, eget euismod magna placerat a. Nullam vel nibh posuere, mollis ex nec, malesuada eros. Nullam maximus consequat cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a neque eget massa iaculis mattis et sit amet justo. Curabitur lacinia in lorem quis volutpat.
@@ -46,5 +47,6 @@ Proin interdum sit amet quam quis imperdiet. Duis mi nulla, ornare non mauris el
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        app:layout_constraintTop_toBottomOf="@+id/textView19"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

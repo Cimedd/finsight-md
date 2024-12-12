@@ -19,19 +19,19 @@ class SmallAdapter(private val list : List<FAQ>) : RecyclerView.Adapter<SmallAda
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-//        with(holder.binding){
-//            txtLine.text = list[position].ticker
-//        }
+        with(holder.binding){
+            txtLine.text = list[position].question
+        }
         holder.itemView.setOnClickListener{
-            onItemClickListener.onItemClick()
+            onItemClickListener.onItemClick(list[position])
         }
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return list.size
     }
 
     interface OnItemClickListener  {
-        fun onItemClick()
+        fun onItemClick( faq : FAQ)
     }
 }

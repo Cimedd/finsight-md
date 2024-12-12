@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +26,8 @@ class InsightFragment : Fragment() {
     private val postVM by viewModels<PostViewModel> {
         PostVMF.getInstance(requireActivity())
     }
+    private var insightMore = false
+    private var listFAQ : MutableList<FAQ> = mutableListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -46,9 +49,15 @@ class InsightFragment : Fragment() {
 
         postVM.news.observe(viewLifecycleOwner){
             when(it){
-                is Result.Error -> {}
-                Result.Loading -> {}
+                is Result.Error -> {
+                    Toast.makeText(requireActivity(), it.error, Toast.LENGTH_SHORT).show()
+                    binding.progressBar.visibility = View.GONE
+                }
+                Result.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
                 is Result.Success -> {
+                    binding.progressBar.visibility = View.GONE
                     val newsAdapter = NewsAdapter(it.data)
                     binding.rcNews.adapter = newsAdapter
                     newsAdapter.setOnItemClickCallback(object : NewsAdapter.OnItemClickListener{
@@ -65,31 +74,45 @@ class InsightFragment : Fragment() {
         postVM.getNews(TextFormatter.getTodayDate())
 
 
-        val question = resources.getStringArray(R.array.riskQuestion)
-        val ans = resources.getStringArray(R.array.riskQuestion)
-        var listFAQ : MutableList<FAQ> = mutableListOf()
-
-        question.forEachIndexed { index, s ->
-            listFAQ.add(FAQ(s, ans[index]))
-        }
-
-        val smallAdapt = SmallAdapter(listFAQ)
-
+        val question = resources.getStringArray(R.array.faq_questions)
+        val ans = resources.getStringArray(R.array.faq_answers)
         binding.rcFaq.layoutManager = LinearLayoutManager(requireActivity())
         binding.rcFaq.setHasFixedSize(true)
-        binding.rcFaq.adapter = smallAdapt
 
+        if (listFAQ.isEmpty()){
+            question.forEachIndexed { index, s ->
+                listFAQ.add(FAQ(s, ans[index]))
+            }
+        }
+        seeInsight()
+
+        binding.txtMoreIIns.setOnClickListener{
+           seeInsight()
+        }
+    }
+
+    private fun seeInsight(){
+        val smallAdapt: SmallAdapter
+        if(!insightMore){
+            smallAdapt = SmallAdapter(listFAQ.take(4))
+            binding.rcFaq.adapter = smallAdapt
+            insightMore = true
+            binding.txtMoreIIns.text = getString(R.string.see_more)
+        }
+        else{
+            smallAdapt = SmallAdapter(listFAQ)
+            binding.rcFaq.adapter = smallAdapt
+            insightMore = false
+            binding.txtMoreIIns.text = getString(R.string.see_less)
+        }
         smallAdapt.setOnItemClickCallback(object : SmallAdapter.OnItemClickListener{
-            override fun onItemClick() {
-                val educateFrag = EducateFragment().apply {  }
-                EducateFragment().show(parentFragmentManager,"Educate")
+            override fun onItemClick(faq : FAQ) {
+                val educateFrag = EducateFragment.newInstance(faq)
+                educateFrag.show(parentFragmentManager,"Educate")
             }
         })
-
-
     }
     companion object {
-
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             InsightFragment().apply {

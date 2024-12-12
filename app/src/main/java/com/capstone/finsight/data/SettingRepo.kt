@@ -1,10 +1,13 @@
 package com.capstone.finsight.data
 
+import android.util.Log
+import com.capstone.finsight.R
 import com.capstone.finsight.dataclass.GenericResponse
 import com.capstone.finsight.dataclass.RegisterRequest
 import com.capstone.finsight.dataclass.ResponseLogin
 import com.capstone.finsight.dataclass.ResponseRegister
 import com.capstone.finsight.network.ApiService
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -20,8 +23,8 @@ class SettingRepo(private val apiService: ApiService, private val settingPref: S
         return apiService.login(body)
     }
 
-    suspend fun saveToDataStore(uid: String, name: String, token: String){
-        settingPref.loggedIn(uid, name, token)
+    suspend fun saveToDataStore(uid: String, name: String, url: String){
+        settingPref.loggedIn(uid, name, url)
     }
     suspend fun register(email: String,username:String, password : String): ResponseRegister{
         val register = RegisterRequest(email,username,password)
@@ -38,6 +41,31 @@ class SettingRepo(private val apiService: ApiService, private val settingPref: S
 
     suspend fun getRisk() : String{
         return settingPref.getRiskSetting().firstOrNull() ?: ""
+    }
+
+    suspend fun getProfile() : String{
+        return settingPref.getUserProfileSetting().firstOrNull() ?:""
+    }
+    suspend fun getName() : String{
+        return settingPref.getName().firstOrNull() ?:""
+    }
+
+    suspend fun getNotif() : Boolean{
+        return settingPref.getNotificationSetting().first()
+    }
+
+    suspend fun getTheme() : Boolean{
+        return settingPref.getThemeSetting().first()
+    }
+
+    suspend fun saveNotif(isTrue: Boolean){
+        settingPref.saveNotificationSetting(isTrue)
+        Log.d("Notif", isTrue.toString())
+    }
+
+    suspend fun saveTheme(isDark: Boolean){
+        settingPref.saveThemeSetting(isDark)
+
     }
 
     suspend fun logout(){

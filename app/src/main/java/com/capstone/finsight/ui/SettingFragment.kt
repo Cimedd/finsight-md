@@ -1,13 +1,16 @@
 package com.capstone.finsight.ui
 
+import android.Manifest
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -15,6 +18,8 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.capstone.finsight.R
 import com.capstone.finsight.data.ProfileVMF
 import com.capstone.finsight.data.ProfileViewModel
@@ -44,6 +49,16 @@ class SettingFragment : Fragment() {
         }
     }
 
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+            } else {
+                Toast.makeText(requireActivity(), "Notifications permission rejected", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -61,18 +76,26 @@ class SettingFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(binding.switchTheme.isChecked){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+        lifecycleScope.launch {
+            settingVM.getNotif()
+            binding.switchTheme.isChecked = settingVM.getTheme()
+            val image = if(settingVM.getProf() != "") settingVM.getProf() else R.drawable.example1
+            Glide.with(requireActivity())
+                .load(image)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(binding.imgUser)
         }
-        else{
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        settingVM.notifEnabled.observe(viewLifecycleOwner){
+            binding.switch2.isChecked = it
         }
 
         binding.fabAdd.setOnClickListener{
             launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
 
-        binding.btnSetProfile.setOnClickListener {
+        binding.txtProfileRiskSet.setOnClickListener {
             val intent = Intent(requireActivity(),RiskActivity::class.java)
             requireActivity().startActivity(intent)
         }
@@ -84,6 +107,27 @@ class SettingFragment : Fragment() {
             val intent = Intent(requireActivity(),LoginActivity::class.java)
             requireActivity().startActivity(intent)
             requireActivity().finish()
+        }
+
+        binding.switch2.setOnCheckedChangeListener { _, isChecked ->
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+            settingVM.saveNotif(isChecked)
+            Log.d("Setting", isChecked.toString())
+        }
+
+        binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
+            binding.switchTheme.isEnabled = false
+            if(isChecked){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
+            else{
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+            settingVM.saveTheme(isChecked)
+            binding.switchTheme.isEnabled = true
+
         }
     }
 
@@ -103,7 +147,7 @@ class SettingFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance() =
             SettingFragment().apply {
                 arguments = Bundle().apply {
                 }

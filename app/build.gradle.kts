@@ -19,6 +19,12 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    packagingOptions {
+        exclude( "META-INF/INDEX.LIST")
+        exclude("META-INF/LICENSE")
+        exclude("META-INF/DEPENDENCIES")
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -65,4 +71,16 @@ dependencies {
     implementation (libs.glide)
     implementation(libs.androidx.viewpager2)
     implementation(libs.circleimageview)
+    implementation (libs.google.cloud.pubsub)
+    implementation(libs.grpc.okhttp)
+    implementation(libs.grpc.protobuf)
+    implementation(libs.grpc.stub)
+    implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+}
+
+configurations.all {
+    resolutionStrategy {
+        force("com.google.guava:guava:30.1-jre")   // Force using Guava 30.1-jre version
+    }
 }

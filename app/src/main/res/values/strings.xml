@@ -4,6 +4,10 @@
     <string name="placeholder">Lorem Ipsum</string>
     <string name="top_picks_for_you">Top Picks For You</string>
     <string name="setting">Setting</string>
+    <string name="notification_subtext">Check out this news</string>
+    <string name="see_less">See Less</string>
+    <string name="see_more">See More</string>
+
 
     <string-array name="riskQuestion">
         <item>How old are you?</item>

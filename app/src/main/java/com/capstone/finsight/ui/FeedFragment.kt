@@ -61,10 +61,9 @@ class FeedFragment : Fragment() {
             postVM.post.observe(requireActivity()){
                 when(it){
                     is Result.Error -> {
-
+                        Toast.makeText(requireActivity(), it.error, Toast.LENGTH_SHORT).show()
                     }
                     Result.Loading -> {
-
                     }
                     is Result.Success -> {
                         val adapter = PostAdapter(it.data)

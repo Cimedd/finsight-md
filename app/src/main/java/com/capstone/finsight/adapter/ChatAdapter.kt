@@ -1,6 +1,7 @@
 package com.capstone.finsight.adapter
 
 import android.content.res.ColorStateList
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -34,9 +35,9 @@ class ChatAdapter(private val chat : List<ChatsItem>, val uid : String) : Recycl
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         with(holder.binding){
             txtChatBox.text = chat[position].message
-            val image = if(chat[position].uidSender == uid) chat[position].senderUrl else chat[position].receiverUrl
+            txtTime.text = TextFormatter.getChatTime(chat[position].createdAt?.seconds ?: 0,chat[position].createdAt?.nanoseconds ?: 0   )
             Glide.with(holder.itemView.context)
-                .load(image)
+                .load(chat[position].senderUrl)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgUser)
 
@@ -46,17 +47,23 @@ class ChatAdapter(private val chat : List<ChatsItem>, val uid : String) : Recycl
                         endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
                         startToEnd = R.id.txtChatBox
                         marginEnd = (24 * holder.itemView.context.resources.displayMetrics.density).toInt()
-                        marginStart = (16 * holder.itemView.context.resources.displayMetrics.density).toInt()
+                        marginStart = (8 * holder.itemView.context.resources.displayMetrics.density).toInt()
                     }
-                    txtChatBox.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                        endToEnd = ConstraintLayout.LayoutParams.UNSET
-                        startToEnd = ConstraintLayout.LayoutParams.UNSET
-                        startToStart = ConstraintLayout.LayoutParams.PARENT_ID
-                        endToStart = R.id.imgUser
-                        marginStart = (32 * holder.itemView.context.resources.displayMetrics.density).toInt()
-                        marginEnd = (0 * holder.itemView.context.resources.displayMetrics.density).toInt()
-                    }
+
+                txtChatBox.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                    endToEnd = ConstraintLayout.LayoutParams.UNSET
+                    startToEnd = R.id.txtTime
+                    endToStart = R.id.imgUser
+                    marginStart = (8 * holder.itemView.context.resources.displayMetrics.density).toInt()
+                    marginEnd = (8 * holder.itemView.context.resources.displayMetrics.density).toInt()
+                }
+
+                txtTime.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                    endToEnd = ConstraintLayout.LayoutParams.UNSET
+                    startToStart = ConstraintLayout.LayoutParams.PARENT_ID
+                    marginStart = (32 * holder.itemView.context.resources.displayMetrics.density).toInt()
                 }
             }
         }
+    }
 }

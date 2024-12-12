@@ -1,6 +1,5 @@
 package com.capstone.finsight.utils
 
-import com.capstone.finsight.R
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.time.Instant
@@ -25,6 +24,15 @@ object TextFormatter {
         return "Posted on $formattedTime"
     }
 
+    fun getChatTime(seconds: Long, nanoseconds: Int): String {
+        val timestamp = Instant.ofEpochSecond(seconds, nanoseconds.toLong())
+            .atZone(ZoneId.systemDefault())
+            .toLocalDateTime()
+
+        val formatter = DateTimeFormatter.ofPattern("HH:mm")
+
+        return timestamp.format(formatter)
+    }
     fun parseTime(time : String) : String{
         val inputFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", Locale.ENGLISH)
         val date = inputFormat.parse(time)

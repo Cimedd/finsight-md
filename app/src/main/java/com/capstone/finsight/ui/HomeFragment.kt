@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.capstone.finsight.R
 import com.capstone.finsight.adapter.HomeNewsAdapter
 import com.capstone.finsight.adapter.NewsAdapter
@@ -76,9 +77,14 @@ class HomeFragment : Fragment() {
         binding.rcMarket.setHasFixedSize(true)
         postVM.news.observe(viewLifecycleOwner){
             when(it){
-                is Result.Error -> {}
-                Result.Loading -> {}
+                is Result.Error -> {
+                    binding.pbNews.visibility = View.GONE
+                }
+                Result.Loading -> {
+                    binding.pbNews.visibility = View.VISIBLE
+                }
                 is Result.Success -> {
+                    binding.pbNews.visibility = View.GONE
                     val newsAdapter = HomeNewsAdapter(it.data)
                     binding.rcHomeNews.adapter = newsAdapter
                     newsAdapter.setOnItemClickCallback(object : HomeNewsAdapter.OnItemClickListener{
@@ -97,9 +103,14 @@ class HomeFragment : Fragment() {
             val risk = settingVM.getRisk()
             MLVM.getRecommend(risk).observe(viewLifecycleOwner){
                 when(it){
-                    is Result.Error -> {}
-                    Result.Loading -> {}
+                    is Result.Error -> {
+                        binding.pbRec.visibility = View.GONE
+                    }
+                    Result.Loading -> {
+                        binding.pbRec.visibility = View.VISIBLE
+                    }
                     is Result.Success -> {
+                        binding.pbRec.visibility = View.GONE
                         val smallAdapt = ReccomAdapter(it.data.recommendations!!)
                         binding.rcSuggestion.adapter = smallAdapt
                         smallAdapt.setOnItemClickCallback(object : ReccomAdapter.OnItemClickListener{
@@ -110,13 +121,28 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
+
+            val image = if(settingVM.getProf() != "") settingVM.getProf() else R.drawable.example1
+            Glide.with(requireActivity())
+                .load(image)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(binding.imgUser)
+
+            binding.txtHomeProfile.text = settingVM.getRisk()
+
+            val text = "Welcome, " + settingVM.getName()
+            binding.txtHomeName.text = text
         }
 
         MLVM.getAll().observe(viewLifecycleOwner){
             when(it){
-                is Result.Error -> { Toast.makeText(requireActivity(), it.error, Toast.LENGTH_SHORT).show()}
-                Result.Loading -> {}
+                is Result.Error -> { Toast.makeText(requireActivity(), it.error, Toast.LENGTH_SHORT).show()
+                binding.pbMarket.visibility = View.GONE}
+                Result.Loading -> {
+                    binding.pbMarket.visibility = View.VISIBLE
+                }
                 is Result.Success -> {
+                    binding.pbMarket.visibility = View.GONE
                     stocksData = it.data.recommendations!!
                     stockAdapter = StockAdapter(stocksData.take(3))
                     binding.rcMarket.adapter = stockAdapter
@@ -139,9 +165,7 @@ class HomeFragment : Fragment() {
             )
         }
 
-        Glide.with(this)
-            .load(R.drawable.example1)
-            .into(binding.imgUser)
+
 
         binding.cardView3.setOnClickListener{
             findNavController().navigate(R.id.action_itemHome_to_itemProfile)
@@ -153,6 +177,7 @@ class HomeFragment : Fragment() {
                 stockAdapter = StockAdapter(stocksData)
                 binding.rcMarket.adapter = stockAdapter
                 stockAll = true
+
             }
             else{
                 binding.txtStocksAll.text = "See More"
@@ -160,13 +185,18 @@ class HomeFragment : Fragment() {
                 binding.rcMarket.adapter = stockAdapter
                 stockAll = false
             }
+            stockAdapter.setOnItemClickCallback(object : StockAdapter.OnItemClickListener{
+                override fun onItemClick(stock: String, desc : String) {
+                    forecast(stock, desc)
+                }
+            })
         }
     }
 
     private fun forecast(stock:String, desc : String){
         val bundle = Bundle()
         bundle.putString("STOCK", stock)
-        bundle.putString("DESC", stock)
+        bundle.putString("DESC", desc)
         findNavController().navigate(R.id.action_itemHome_to_forecastFragment, bundle)
     }
 

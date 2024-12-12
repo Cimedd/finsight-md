@@ -1,6 +1,8 @@
 package com.capstone.finsight.dataclass
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class GenericResponse(
 
@@ -11,7 +13,8 @@ data class GenericResponse(
 	val status: String? = null
 )
 
-data class FAQ(val question : String, val answer : String)
+@Parcelize
+data class FAQ(val question : String, val answer : String) :Parcelable
 data class ResponseLogin(
 
 	@field:SerializedName("message")
@@ -26,8 +29,8 @@ data class ResponseLogin(
 	@field:SerializedName("username")
 	val user: String? = null,
 
-	@field:SerializedName("token")
-	val token: String? = null
+	@field:SerializedName("profileUrl")
+	val profileUrl: String? = null
 )
 
 data class ResponseRegister(

@@ -1,5 +1,8 @@
 package com.capstone.finsight.data
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
@@ -8,6 +11,10 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 class SettingViewModel(private val repo : SettingRepo) : ViewModel() {
+
+    private val _notifEnabled = MutableLiveData<Boolean>()
+    val notifEnabled: LiveData<Boolean> get() = _notifEnabled
+
     fun login(username : String, password : String) = liveData{
         emit(Result.Loading)
         try {
@@ -15,7 +22,7 @@ class SettingViewModel(private val repo : SettingRepo) : ViewModel() {
             if(response.isSuccessful){
                 val body = response.body()
                 if(body?.status == "success"){
-                    repo.saveToDataStore(body.uid ?: "", body.user?:"", body.token?:"")
+                    repo.saveToDataStore(body.uid ?: "", body.user?:"", body.profileUrl?:"")
                     emit(Result.Success(response))
                 }
                 else{
@@ -80,9 +87,41 @@ class SettingViewModel(private val repo : SettingRepo) : ViewModel() {
         return repo.getRisk()
     }
 
+    suspend fun getProf() : String{
+        return repo.getProfile()
+    }
+    suspend fun getName() : String{
+        return repo.getName()
+    }
+
     suspend fun logout(){
         repo.logout()
     }
+
+    suspend fun getNotif(): Boolean{
+        _notifEnabled.value = repo.getNotif()
+        Log.d("NOTIF", _notifEnabled.value.toString())
+        return _notifEnabled.value ?: false
+    }
+
+    fun saveNotif(isTrue: Boolean) {
+        viewModelScope.launch {
+            _notifEnabled.value = isTrue
+            repo.saveNotif(isTrue)
+            Log.d("NOTIF", _notifEnabled.value.toString())
+        }
+    }
+
+    suspend fun getTheme(): Boolean{
+        return repo.getTheme()
+    }
+
+    fun saveTheme(isTrue: Boolean) {
+        viewModelScope.launch {
+            repo.saveTheme(isTrue)
+        }
+    }
+
 
 
 }
