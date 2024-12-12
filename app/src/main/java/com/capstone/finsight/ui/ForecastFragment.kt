@@ -52,7 +52,7 @@ class ForecastFragment : Fragment() {
         binding.chart2.visibility = View.GONE
         stock =  arguments?.getString("STOCK") ?: ""
         val stockDesc =  arguments?.getString("DESC") ?: ""
-        binding.txtDesc.text = stockDesc
+        binding.txtDesc.text = TextFormatter.splitIntoParagraphs(stockDesc)
         setChoose()
         MLVM.getForecast(stock, step)
         binding.textView14.text = stock
