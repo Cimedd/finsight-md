@@ -1,9 +1,11 @@
 
 ## 📋 Table of Contents
 
-1. [Releases](#-releases)
-2. [Features](#-feature)
-3. [Screenshots](#-screenshots)
+1. [About](#-finsight)
+2. [Releases](#-release)
+3. [Features](#-feature)
+4. [Screenshots and demo video](#-screenshots-and-demo-video)
+5. [Library](#-library)
 
 ---
 
@@ -13,16 +15,51 @@ Finsight is an AI driven application that aims to simplify financial planning by
 
 By leveraging historical stock data and financial ratios, the app predicts stock trends and tailors suggestions for users. It helps individuals with surplus funds make informed decisions, encouraging smarter financial habits and long-term wealth building. We also provide a social feature to help users engage with one another and gather insight on financial topics. With a cloud-based architecture, the app ensures scalability and reliability, while mobile compatibility provides ease of access for users.
 
----
+The app is build using Kotlin on Android Studio.
 
+**Our team**
+- [Willy](https://github.com/WhoIsLiLY) - Machine Learning
+- [Darren](https://github.com/Cupcake-Legend) - Cloud Computing
+- [Nathan](https://github.com/canonflow) - Machine Learning
+- [Anton](https://github.com/antoniuskp) - Machine Learning
+- [Randy](https://github.com/hyperneutr0n) - Cloud Computing
+- [Edward](https://github.com/Cimedd) - Mobile Development
+
+---
 
 ## 🚀 Releases
 
 Find the latest releases [here](https://github.com/Cimedd/finsight-md/releases/tag/Finsight).
 
+You can run the project on your own.
+Follow these steps to clone and set up the project locally:
+
+1. **Clone the Repository**
+
+   Open your terminal or command prompt, navigate to the desired folder, and run:
+
+   ```bash
+   git clone https://github.com/Cimedd/finsight-md.git
+   ```
+
+2. **Open the Project**
+
+   - Open the project in **Android Studio**.
+   - Allow Gradle to sync all dependencies.
+
+3. **Run the Application**
+
+   - Connect an Android device via USB or use an emulator.
+   - Click on the "Run" button in Android Studio.
+
+4. **Configure the Backend** (Optional)
+
+   - Ensure that the cloud services like Google Pub/Sub are set up correctly.
+   - Replace any API keys or configurations in the `build.gradle` or `config` files if needed.
+
 ---
 
-## feature
+## Feature
 
 Here the features available in finsight :
 - Onboarding Page
@@ -36,23 +73,58 @@ Here the features available in finsight :
     - Show post created by other users followed by the User
     - Floating action button to add a post
     - Chat history where user can see anyone they've chatted with 
+    - Comment on another user post
 - Insight Page :
-    - Ccards showing general question about stocks
+    - Cards showing general question about stocks
     - List of all news available
+- Settings Page :
+   - Customize your profile picture
+   - Customize app theme
+   - Turn on Notification
 
 ---
 
-## 🖼 Screenshots
+## 🖼 Screenshots and Demo Video
+
+Check out the demo video of the project on [YouTube](https://youtu.be/OOyMRxYgSns).
 
 Below are screenshots of the project design:
 
+1.Onboarding 
+![onbaording_1](image/onboarding-1.jpg)
+![onbaording_2](image/onboarding-2.jpg)
+![onbaording_3](image/onboarding-3.jpg)
+
+2.Login, Register, Risk Assessment
+![login](image/login.jpg)
+![Register](image/register.jpg)
+![risk](image/profile-risk.jpg)
+
+3.Home
+![Home](image/home.jpg)
+![forecast 1](image/forecast-1.jpg)
+![forecast 2](image/forecast-1.jpg)
+
+4.Feed
+![feed](image/feed.jpg)
+![feed-add 1](image/feed-add.jpg)
+![feed-post 2](image/feed-post-detail.jpg)
+![chat](image/chat-list.jpg)
+![chat](image/chat-detail.jpg)
+
+5.Insight
+![insight](image/insight.jpg)
+![insight-dialog](image/insight-dialog.jpg)
+![insight-news](image/insight-news-detail.jpg)
+![Notification](image/notification.jpg)
 
 ---
 
 ## Library
 
-1. Glide
-2. Retrofit
-3. Google Clous PubSub
-4. MPAndroidChart
+This project uses the following libraries:
 
+1. **Glide** - Image loading and caching
+2. **Retrofit** - REST API client
+3. **Google Cloud Pub/Sub** - Messaging and event streaming
+4. **MPAndroidChart** - Graph and chart visualization

@@ -86,8 +86,11 @@ class DetailPostFragment : Fragment() {
                 is Result.Error ->{
                 }
                 Result.Loading ->{
+                    binding.txtSendChat.isEnabled = false
                 }
                 is Result.Success ->{
+                    binding.txtSendChat.isEnabled = true
+                    binding.txtAddComments.setText("")
                     binding.rcComment.adapter = CommentAdapter(it.data)
                 }
             }
