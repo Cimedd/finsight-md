@@ -1,11 +1,11 @@
 
 ## 📋 Table of Contents
 
-1. [About](#-finsight)
-2. [Releases](#-release)
-3. [Features](#-feature)
+1. [About](#finsight)
+2. [Releases](#-releases)
+3. [Features](#feature)
 4. [Screenshots and demo video](#-screenshots-and-demo-video)
-5. [Library](#-library)
+5. [Library](#library)
 
 ---
 
@@ -116,7 +116,7 @@ Below are screenshots of the project design:
 ![insight](Camera%20Roll/insight.jpg)
 ![insight-dialog](Camera%20Roll/insight-dialog.jpg)
 ![insight-news](Camera%20Roll/insight-news-detail.jpg)
-![Notification](imCamera%20Rollage/notification.jpg)
+![Notification](Camera%20Roll/notification.jpg)
 
 ---
 
