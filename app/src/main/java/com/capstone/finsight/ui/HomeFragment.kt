@@ -85,7 +85,7 @@ class HomeFragment : Fragment() {
                 }
                 is Result.Success -> {
                     binding.pbNews.visibility = View.GONE
-                    val newsAdapter = HomeNewsAdapter(it.data)
+                    val newsAdapter = HomeNewsAdapter(it.data.take(3))
                     binding.rcHomeNews.adapter = newsAdapter
                     newsAdapter.setOnItemClickCallback(object : HomeNewsAdapter.OnItemClickListener{
                         override fun onItemClick(news: NewsItem) {

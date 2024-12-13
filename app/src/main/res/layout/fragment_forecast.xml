@@ -49,13 +49,10 @@
 
             <TextView
                 android:id="@+id/txtDataStatus"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/progressBar3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
                 android:fontFamily="@font/inter_medium"
                 android:text="TextView"
@@ -63,29 +60,27 @@
                 android:textColor="@color/BlackWhite"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:visibility="visible" />
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progressBar3" />
 
             <ProgressBar
                 android:id="@+id/progressBar3"
                 style="?android:attr/progressBarStyle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="182dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="182dp"
-                android:visibility="visible" />
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
             <Button
                 android:id="@+id/btn1"
-                app:cornerRadius="50dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView21"
-                app:strokeColor="@color/blue_main_2"
-                app:strokeWidth="2dp"
-                android:layout_width="110dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
@@ -93,16 +88,16 @@
                 android:fontFamily="@font/jost"
                 android:text="1 year"
                 android:textColor="@color/blue_main_2"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                app:cornerRadius="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView21"
+                app:strokeColor="@color/blue_main_2"
+                app:strokeWidth="2dp" />
 
             <Button
                 android:id="@+id/btn2"
-                app:cornerRadius="50dp"
-                app:layout_constraintStart_toEndOf="@+id/btn1"
-                app:layout_constraintTop_toBottomOf="@+id/textView21"
-                app:strokeColor="@color/blue_main_2"
-                app:strokeWidth="2dp"
-                android:layout_width="110dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
@@ -110,10 +105,16 @@
                 android:fontFamily="@font/jost"
                 android:text="2 year"
                 android:textColor="@color/blue_main_2"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                app:cornerRadius="50dp"
+                app:layout_constraintStart_toEndOf="@+id/btn1"
+                app:layout_constraintTop_toBottomOf="@+id/textView21"
+                app:strokeColor="@color/blue_main_2"
+                app:strokeWidth="2dp" />
 
             <Button
                 android:id="@+id/btn3"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
@@ -125,11 +126,11 @@
                 android:textSize="16sp"
                 app:cornerRadius="50dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/btn2"
                 app:layout_constraintTop_toBottomOf="@+id/textView21"
                 app:strokeColor="@color/blue_main_2"
-                app:strokeWidth="2dp"
-                android:layout_width="110dp"/>
+                app:strokeWidth="2dp" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView4"

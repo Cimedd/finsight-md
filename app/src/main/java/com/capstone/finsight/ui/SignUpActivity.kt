@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -46,9 +47,17 @@ class SignUpActivity : AppCompatActivity() {
                     }
                     is Result.Success ->{
                         binding.btnRegister.setBackgroundColor(getColor(R.color.blue_main_2))
-                        val intent = Intent(this, LoginActivity::class.java)
-                        startActivity(intent)
-                        finish()
+
+                        val alertDialogBuilder = AlertDialog.Builder(this)
+                        alertDialogBuilder.setTitle("Register Successful")
+                        alertDialogBuilder.setMessage("Check your email to verify the account")
+                        alertDialogBuilder.setPositiveButton("OK") { _, _ ->
+                            val intent = Intent(this, LoginActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                        val alertDialog = alertDialogBuilder.create()
+                        alertDialog.show()
                     }
                 }
             }
