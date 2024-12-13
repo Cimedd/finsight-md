@@ -91,32 +91,32 @@ Check out the demo video of the project on [YouTube](https://youtu.be/OOyMRxYgSn
 Below are screenshots of the project design:
 
 1.Onboarding 
-![onbaording_1](image/onboarding-1.jpg)
-![onbaording_2](image/onboarding-2.jpg)
-![onbaording_3](image/onboarding-3.jpg)
+![onbaording_1](Camera%20Roll/onboarding-1.jpg)
+![onbaording_2](Camera%20Roll/onboarding-2.jpg)
+![onbaording_3](Camera%20Roll/onboarding-3.jpg)
 
 2.Login, Register, Risk Assessment
-![login](image/login.jpg)
-![Register](image/register.jpg)
-![risk](image/profile-risk.jpg)
+![login](Camera%20Roll/login.jpg)
+![Register](Camera%20Roll/register.jpg)
+![risk](Camera%20Roll/profile-risk.jpg)
 
 3.Home
-![Home](image/home.jpg)
-![forecast 1](image/forecast-1.jpg)
-![forecast 2](image/forecast-1.jpg)
+![Home](Camera%20Roll/home.jpg)
+![forecast 1](Camera%20Roll/forecast-1.jpg)
+![forecast 2](Camera%20Roll/forecast-1.jpg)
 
 4.Feed
-![feed](image/feed.jpg)
-![feed-add 1](image/feed-add.jpg)
-![feed-post 2](image/feed-post-detail.jpg)
-![chat](image/chat-list.jpg)
-![chat](image/chat-detail.jpg)
+![feed](Camera%20Roll/feed.jpg)
+![feed-add 1](Camera%20Roll/feed-add.jpg)
+![feed-post 2](Camera%20Roll/feed-post-detail.jpg)
+![chat](Camera%20Roll/chat-list.jpg)
+![chat](Camera%20Roll/chat-detail.jpg)
 
 5.Insight
-![insight](image/insight.jpg)
-![insight-dialog](image/insight-dialog.jpg)
-![insight-news](image/insight-news-detail.jpg)
-![Notification](image/notification.jpg)
+![insight](Camera%20Roll/insight.jpg)
+![insight-dialog](Camera%20Roll/insight-dialog.jpg)
+![insight-news](Camera%20Roll/insight-news-detail.jpg)
+![Notification](imCamera%20Rollage/notification.jpg)
 
 ---
 
