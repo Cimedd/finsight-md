@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
@@ -17,28 +16,28 @@
         android:theme="@style/Theme.FinSight"
         tools:targetApi="31">
         <activity
-            android:name=".ui.RiskActivity"
-            android:exported="false" />
+            android:name=".ui.OnboardingActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".ui.ForecastActivity"
+            android:name=".ui.RiskActivity"
             android:exported="false" />
         <activity
             android:name=".ui.SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".ui.LoginActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="true">
         </activity>
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
-
+            android:windowSoftInputMode="adjustPan" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

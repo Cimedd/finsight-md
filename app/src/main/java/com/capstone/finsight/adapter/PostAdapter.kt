@@ -18,6 +18,7 @@ class PostAdapter(private val list : List<PostsItem>) : RecyclerView.Adapter<Pos
     private lateinit var onCommentClickListener: OnItemClickListener
     private lateinit var onItemClickListener: OnItemClickListener
     private lateinit var onProfileClickListener: OnItemClickListener
+    private lateinit var onShareClickListener: OnItemClickListener
     class ListViewHolder(var binding : PostDesignBinding ) : RecyclerView.ViewHolder(binding.root)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostAdapter.ListViewHolder {
         val binding = PostDesignBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -48,6 +49,10 @@ class PostAdapter(private val list : List<PostsItem>) : RecyclerView.Adapter<Pos
                 .load(profile)
                 .into(imgUser)
 
+            imgUser.setOnClickListener {onProfileClickListener.onItemClick(list[position]) }
+
+            btnShare.setOnClickListener {onShareClickListener.onItemClick(list[position]) }
+
             Log.d("URL", list[position].profileUrl.toString())
             Log.d("URL", list[position].postUrl.toString())
             if(list[position].postUrl.isNullOrBlank()){
@@ -66,13 +71,9 @@ class PostAdapter(private val list : List<PostsItem>) : RecyclerView.Adapter<Pos
                 list[position].liked = !list[position].liked
                 if(list[position].liked)
                 {
-//                    val num = list[position].likes?.plus(1)
-//                    txtNumLike.text = TextFormatter.formatNumber(num ?: 0)
                     btnLike.setImageResource(R.drawable.baseline_favorite_24)
                 }
                 else{
-//                    val num = txtNumLike.text.toString().toInt() - 1
-//                    txtNumLike.text = TextFormatter.formatNumber(num )
                     btnLike.setImageResource(R.drawable.baseline_favorite_border_24)
                 }
                 onLikeClickListener.onItemClick(list[position])}
@@ -94,6 +95,9 @@ class PostAdapter(private val list : List<PostsItem>) : RecyclerView.Adapter<Pos
     }
     fun setOnItemClickCallback(onItemClickListener: OnItemClickListener) {
         this.onItemClickListener = onItemClickListener
+    }
+    fun setOnShareClickCallback(onItemClickListener: OnItemClickListener) {
+        this.onShareClickListener = onItemClickListener
     }
     override fun getItemCount(): Int {
         return list.size

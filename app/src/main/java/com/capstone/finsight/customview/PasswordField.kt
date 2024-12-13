@@ -35,7 +35,7 @@ class PasswordField @JvmOverloads constructor(
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (s.toString().length < 8) {
-                    setError(ContextCompat.getString(context, R.string.app_name), null)
+                    setError(context.getString(R.string.password_error), null)
                 } else {
                     error = null
                 }

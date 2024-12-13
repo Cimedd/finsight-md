@@ -29,11 +29,10 @@ class EmailField @JvmOverloads constructor(
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 val email = s.toString().trim()
                 if (email.isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    setError(ContextCompat.getString(context, R.string.app_name), null)
+                    setError(context.getString(R.string.email_format_invalid), null)
                     setButtonDrawables()
                 } else {
                     error = null
-                    setButtonDrawables(endOfTheText = ContextCompat.getDrawable(context, R.drawable.baseline_home_24))
                 }
             }
 

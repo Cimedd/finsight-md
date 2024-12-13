@@ -38,10 +38,14 @@ class SignUpActivity : AppCompatActivity() {
                 when(it){
                     is Result.Error ->{
                         Toast.makeText(this, it.error, Toast.LENGTH_SHORT).show()
-                        Log.d("ERROR", it.error)
+                        binding.btnRegister.setBackgroundColor(getColor(R.color.blue_main_2))
                     }
-                    is Result.Loading -> binding.btnRegister.isActivated = false
+                    is Result.Loading -> {
+                        binding.btnRegister.isActivated = false
+                        binding.btnRegister.setBackgroundColor(getColor(R.color.grayed))
+                    }
                     is Result.Success ->{
+                        binding.btnRegister.setBackgroundColor(getColor(R.color.blue_main_2))
                         val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
                         finish()

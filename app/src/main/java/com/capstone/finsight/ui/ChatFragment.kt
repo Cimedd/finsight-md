@@ -59,7 +59,6 @@ class ChatFragment : Fragment() {
         profileVM.getChat(sender,receiver)
 
         binding.txtSendChat.setOnClickListener {
-            Toast.makeText(requireActivity(), "it.error", Toast.LENGTH_SHORT).show()
             val msg = binding.txtChat.text.toString()
             profileVM.postChat(sender,receiver,msg).observe(viewLifecycleOwner){
                 when(it){

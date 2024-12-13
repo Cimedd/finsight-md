@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.capstone.finsight.R
 import com.capstone.finsight.data.SettingVMF
 import com.capstone.finsight.data.SettingViewModel
 import com.capstone.finsight.databinding.ActivityLoginBinding
@@ -48,9 +49,14 @@ class LoginActivity : AppCompatActivity() {
                     is Result.Error -> {
                         Toast.makeText(this, it.error, Toast.LENGTH_SHORT).show()
                         binding.btnLogin.isActivated = true
+                        binding.btnLogin.setBackgroundColor(getColor(R.color.blue_main_2))
                     }
-                    is Result.Loading -> binding.btnLogin.isActivated = false
+                    is Result.Loading -> {
+                        binding.btnLogin.isActivated = false
+                        binding.btnLogin.setBackgroundColor(getColor(R.color.grayed))
+                    }
                     is Result.Success -> {
+                        binding.btnLogin.setBackgroundColor(getColor(R.color.blue_main_2))
                         val intent = Intent(this, RiskActivity::class.java)
                         startActivity(intent)
                         finish()

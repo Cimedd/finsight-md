@@ -7,7 +7,21 @@
     <string name="notification_subtext">Check out this news</string>
     <string name="see_less">See Less</string>
     <string name="see_more">See More</string>
+    <string name="email_format_invalid">Email format invalid</string>
+    <string name="password_error">Password must be over 8 character</string>
 
+
+    <string-array name="onboardTitle">
+        <item>Get Tailored Suggestions</item>
+        <item>Connect with Others</item>
+        <item>Boost Your Knowledge About Stocks</item>
+    </string-array>
+
+    <string-array name="onboardDesc">
+        <item>Answer a few quick questions to help us personalize recommendations for you</item>
+        <item>Engage with like-minded individuals and share insights effortlessly</item>
+        <item>Discover essential stock market tips and grow your financial literacy</item>
+    </string-array>
 
     <string-array name="riskQuestion">
         <item>How old are you?</item>

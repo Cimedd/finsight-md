@@ -1,5 +1,6 @@
 package com.capstone.finsight.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -130,6 +131,16 @@ class ProfileFragment : Fragment() {
                                 val bundle = Bundle()
                                 bundle.putParcelable("PostItem", postItem)
                                 findNavController().navigate(R.id.action_itemProfile_to_detailPostFragment, bundle)
+                            }
+                        })
+                        adapter.setOnShareClickCallback(object : PostAdapter.OnItemClickListener{
+                            override fun onItemClick(postItem: PostsItem) {
+                                val shareText = postItem.title + "\n ${postItem.content}"
+                                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                                    type = "text/plain"
+                                    putExtra(Intent.EXTRA_TEXT, shareText)
+                                }
+                                startActivity(Intent.createChooser(shareIntent, "Share via"))
                             }
                         })
                     }

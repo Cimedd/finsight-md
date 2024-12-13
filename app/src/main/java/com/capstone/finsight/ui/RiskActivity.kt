@@ -62,8 +62,7 @@ class RiskActivity : AppCompatActivity() {
 
         binding.btnNext.setOnClickListener{
             checkProgress()
-            binding.progressBar2.setProgress(100/(6 - index),true)
-
+            binding.progressBar2.setProgress(17*(index+1),true)
         }
 
         binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
